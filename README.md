@@ -1,4 +1,4 @@
-# Admin Panel CV Mitra Koperasi Nusantara
+# Admin Panel CV Fano Mitra Konsultan
 
 Aplikasi dashboard admin untuk mengelola data konsultan koperasi berbasis Next.js 14 (App Router).
 
