@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import db from "@/lib/db";
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = parseInt(params.id);
+    const { id: idStr } = await params;
+    const id = parseInt(idStr);
     const { nomor, sumber_pendapatan, tahun1, tahun2, tahun3 } = await request.json();
     const [result] = await db.query(
       `UPDATE anggaran_pendapatan
@@ -21,9 +22,10 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = parseInt(params.id);
+    const { id: idStr } = await params;
+    const id = parseInt(idStr);
     const [result] = await db.query("DELETE FROM anggaran_pendapatan WHERE id = ?", [id]);
     if ((result as any).affectedRows === 0) {
       return NextResponse.json({ error: "Data tidak ditemukan" }, { status: 404 });

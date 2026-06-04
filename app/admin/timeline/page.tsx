@@ -67,7 +67,7 @@ export default function TimelinePage() {
       const rawKeg: any[] = Array.isArray(keg) ? keg : [];
 
       const katData = rawKat
-        .filter((k: any) => k && typeof k === "object" && !Buffer.isBuffer(k) && k.id !== undefined)
+        .filter((k: any) => k && typeof k === "object" && k.id !== undefined)
         .map((k: any) => ({ ...k, id: parseInt(k.id, 10), nama: String(k.nama ?? k.name ?? "") }))
         .filter((k: any) => !isNaN(k.id));
 
