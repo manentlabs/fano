@@ -42,6 +42,16 @@ const inputStyle: React.CSSProperties = {
   fontFamily: "inherit",
 };
 
+const labelStyle: React.CSSProperties = {
+  display: "block",
+  fontSize: 11,
+  color: "#4b5563",
+  marginBottom: 5,
+  fontWeight: 600,
+  textTransform: "uppercase",
+  letterSpacing: "0.05em",
+};
+
 export default function SwotPage() {
   const [swotItems, setSwotItems] = useState<SwotItem[]>([]);
   const [strategiItems, setStrategiItems] = useState<StrategiItem[]>([]);
@@ -51,6 +61,14 @@ export default function SwotPage() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [form, setForm] = useState<any>({});
   const [saving, setSaving] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -162,198 +180,498 @@ export default function SwotPage() {
     return map;
   };
 
-  if (loading) return <div style={{ padding: 40, textAlign: "center", color: "#6b7280" }}>Memuat data...</div>;
+  if (loading)
+    return (
+      <div style={{ padding: 40, textAlign: "center", color: "#6b7280" }}>
+        Memuat data...
+      </div>
+    );
 
   const swotGroups = groupSwot();
   const strategiGroups = groupStrategi();
 
   return (
-    <div style={{ padding: "24px 28px", background: "#f9fafb", minHeight: "100vh", fontFamily: "system-ui, sans-serif", color: "#111827" }}>
-      <div style={{ marginBottom: 24 }}>
-        <p style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.08em", color: "#6b7280", margin: "0 0 4px" }}>
-          CV Mitra Koperasi Nusantara
-        </p>
-        <h1 style={{ fontSize: 22, fontWeight: 700, margin: 0, color: "#1f2937" }}>Analisa SWOT</h1>
-      </div>
+    <>
+      {/* Responsive styles via <style> tag */}
+      <style>{`
+        .swot-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+          margin-bottom: 40px;
+        }
+        .strategi-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
+        .swot-card-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 12px;
+          gap: 8px;
+        }
+        .swot-card-title {
+          margin: 0;
+          font-size: 15px;
+          font-weight: 700;
+        }
+        .card-header-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 12px;
+          gap: 8px;
+        }
+        .card-title {
+          margin: 0;
+          font-size: 14px;
+          font-weight: 700;
+          color: #1f2937;
+        }
+        @media (max-width: 639px) {
+          .swot-grid {
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 28px;
+          }
+          .strategi-grid {
+            grid-template-columns: 1fr;
+            gap: 12px;
+          }
+          .swot-card-title {
+            font-size: 13px;
+          }
+          .card-title {
+            font-size: 13px;
+          }
+        }
+      `}</style>
 
-      {/* Matriks SWOT 2x2 */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 40 }}>
-        {(["S", "W", "O", "T"] as const).map((kat) => {
-          const w = WARNA_KATEGORI[kat];
-          const items = swotGroups[kat] || [];
-          return (
-            <div key={kat} style={{ background: w.bg, border: `1px solid ${w.border}`, borderRadius: 12, padding: 16 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                <h3 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: w.text }}>
-                  {kat} — {KATEGORI_LABEL[kat]}
+      <div
+        style={{
+          padding: isMobile ? "16px 14px" : "24px 28px",
+          background: "#f9fafb",
+          minHeight: "100vh",
+          fontFamily: "system-ui, sans-serif",
+          color: "#111827",
+        }}
+      >
+        {/* Header */}
+        <div style={{ marginBottom: isMobile ? 16 : 24 }}>
+          <p
+            style={{
+              fontSize: 11,
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+              color: "#6b7280",
+              margin: "0 0 4px",
+            }}
+          >
+            CV Mitra Koperasi Nusantara
+          </p>
+          <h1
+            style={{
+              fontSize: isMobile ? 18 : 22,
+              fontWeight: 700,
+              margin: 0,
+              color: "#1f2937",
+            }}
+          >
+            Analisa SWOT
+          </h1>
+        </div>
+
+        {/* Matriks SWOT 2x2 */}
+        <div className="swot-grid">
+          {(["S", "W", "O", "T"] as const).map((kat) => {
+            const w = WARNA_KATEGORI[kat];
+            const items = swotGroups[kat] || [];
+            return (
+              <div
+                key={kat}
+                style={{
+                  background: w.bg,
+                  border: `1px solid ${w.border}`,
+                  borderRadius: 12,
+                  padding: isMobile ? 12 : 16,
+                }}
+              >
+                <div className="swot-card-header">
+                  <h3
+                    className="swot-card-title"
+                    style={{ color: w.text, flexShrink: 1, minWidth: 0 }}
+                  >
+                    {kat} —{" "}
+                    <span style={{ fontWeight: 500 }}>
+                      {isMobile ? kat === "S" ? "Kekuatan" : kat === "W" ? "Kelemahan" : kat === "O" ? "Peluang" : "Ancaman" : KATEGORI_LABEL[kat]}
+                    </span>
+                  </h3>
+                  <button
+                    onClick={() => openAddSwot(kat)}
+                    style={{
+                      background: w.badge,
+                      border: "none",
+                      borderRadius: 6,
+                      padding: isMobile ? "5px 8px" : "4px 10px",
+                      color: "#fff",
+                      fontSize: isMobile ? 11 : 12,
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      whiteSpace: "nowrap",
+                      flexShrink: 0,
+                    }}
+                  >
+                    + Tambah
+                  </button>
+                </div>
+                {items.length === 0 ? (
+                  <p style={{ color: "#6b7280", fontSize: 13, fontStyle: "italic" }}>
+                    Belum ada poin
+                  </p>
+                ) : (
+                  <ul style={{ margin: 0, paddingLeft: 18 }}>
+                    {items
+                      .sort((a, b) => a.urutan - b.urutan)
+                      .map((item) => (
+                        <li
+                          key={item.id}
+                          style={{
+                            marginBottom: 6,
+                            fontSize: isMobile ? 12 : 13,
+                            lineHeight: 1.5,
+                            color: w.text,
+                            cursor: "pointer",
+                          }}
+                          onClick={() => openEditSwot(item)}
+                        >
+                          {item.deskripsi}
+                        </li>
+                      ))}
+                  </ul>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Strategi */}
+        <h2
+          style={{
+            fontSize: isMobile ? 15 : 18,
+            fontWeight: 700,
+            color: "#1f2937",
+            marginBottom: 16,
+          }}
+        >
+          Strategi Utama Berdasarkan SWOT
+        </h2>
+        <div className="strategi-grid">
+          {(["SO", "WO", "ST", "WT"] as const).map((tipe) => {
+            const items = strategiGroups[tipe] || [];
+            return (
+              <div
+                key={tipe}
+                style={{
+                  background: "#ffffff",
+                  border: "1px solid #e5e7eb",
+                  borderRadius: 12,
+                  padding: isMobile ? 12 : 16,
+                }}
+              >
+                <div className="card-header-row">
+                  <h4 className="card-title" style={{ flexShrink: 1, minWidth: 0 }}>
+                    {isMobile
+                      ? tipe === "SO"
+                        ? "SO — Pertumbuhan"
+                        : tipe === "WO"
+                        ? "WO — Perbaikan"
+                        : tipe === "ST"
+                        ? "ST — Kompetitif"
+                        : "WT — Defensif"
+                      : TIPE_STRATEGI_LABEL[tipe]}
+                  </h4>
+                  <button
+                    onClick={() => openAddStrategi(tipe)}
+                    style={{
+                      background: "#f59e0b",
+                      border: "none",
+                      borderRadius: 6,
+                      padding: isMobile ? "5px 8px" : "4px 10px",
+                      color: "#1c1917",
+                      fontSize: isMobile ? 11 : 12,
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      whiteSpace: "nowrap",
+                      flexShrink: 0,
+                    }}
+                  >
+                    + Tambah
+                  </button>
+                </div>
+                {items.length === 0 ? (
+                  <p style={{ color: "#6b7280", fontSize: 13, fontStyle: "italic" }}>
+                    Belum ada strategi
+                  </p>
+                ) : (
+                  <ul style={{ margin: 0, paddingLeft: 18 }}>
+                    {items
+                      .sort((a, b) => a.urutan - b.urutan)
+                      .map((item) => (
+                        <li
+                          key={item.id}
+                          style={{
+                            marginBottom: 6,
+                            fontSize: isMobile ? 12 : 13,
+                            lineHeight: 1.5,
+                            color: "#111827",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => openEditStrategi(item)}
+                        >
+                          {item.strategi}
+                        </li>
+                      ))}
+                  </ul>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Modal */}
+        {modal && (
+          <div
+            style={{
+              position: "fixed",
+              inset: 0,
+              background: "rgba(0,0,0,0.4)",
+              display: "flex",
+              alignItems: isMobile ? "flex-end" : "center",
+              justifyContent: "center",
+              padding: isMobile ? 0 : 16,
+              zIndex: 999,
+            }}
+          >
+            <div
+              style={{
+                background: "#fff",
+                border: "1px solid #e5e7eb",
+                borderRadius: isMobile ? "16px 16px 0 0" : 16,
+                width: "100%",
+                maxWidth: isMobile ? "100%" : 480,
+                maxHeight: isMobile ? "90vh" : "90vh",
+                overflowY: "auto",
+              }}
+            >
+              {/* Modal handle bar for mobile */}
+              {isMobile && (
+                <div style={{ display: "flex", justifyContent: "center", padding: "10px 0 0" }}>
+                  <div
+                    style={{
+                      width: 36,
+                      height: 4,
+                      borderRadius: 2,
+                      background: "#d1d5db",
+                    }}
+                  />
+                </div>
+              )}
+              <div
+                style={{
+                  padding: "14px 20px",
+                  borderBottom: "1px solid #e5e7eb",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <h3 style={{ margin: 0, fontSize: 15, fontWeight: 600 }}>
+                  {editType === "swot"
+                    ? editingId
+                      ? "Edit Poin SWOT"
+                      : "Tambah Poin SWOT"
+                    : editingId
+                    ? "Edit Strategi"
+                    : "Tambah Strategi"}
                 </h3>
                 <button
-                  onClick={() => openAddSwot(kat)}
+                  onClick={() => setModal(false)}
                   style={{
-                    background: w.badge,
+                    background: "none",
                     border: "none",
-                    borderRadius: 6,
-                    padding: "4px 10px",
-                    color: "#fff",
-                    fontSize: 12,
-                    fontWeight: 600,
                     cursor: "pointer",
+                    color: "#6b7280",
+                    fontSize: 18,
+                    padding: "4px 6px",
+                    lineHeight: 1,
                   }}
                 >
-                  + Tambah
+                  ✕
                 </button>
               </div>
-              {items.length === 0 ? (
-                <p style={{ color: "#6b7280", fontSize: 13, fontStyle: "italic" }}>Belum ada poin</p>
-              ) : (
-                <ul style={{ margin: 0, paddingLeft: 20 }}>
-                  {items
-                    .sort((a, b) => a.urutan - b.urutan)
-                    .map((item) => (
-                      <li
-                        key={item.id}
-                        style={{ marginBottom: 6, fontSize: 13, lineHeight: 1.5, color: w.text, cursor: "pointer" }}
-                        onClick={() => openEditSwot(item)}
+              <div
+                style={{
+                  padding: "16px 20px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 12,
+                }}
+              >
+                {editType === "swot" ? (
+                  <>
+                    <div>
+                      <label style={labelStyle}>Kategori</label>
+                      <select
+                        value={form.kategori}
+                        onChange={(e) => setForm({ ...form, kategori: e.target.value })}
+                        style={inputStyle}
                       >
-                        {item.deskripsi}
-                      </li>
-                    ))}
-                </ul>
-              )}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Strategi */}
-      <h2 style={{ fontSize: 18, fontWeight: 700, color: "#1f2937", marginBottom: 16 }}>Strategi Utama Berdasarkan SWOT</h2>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-        {(["SO", "WO", "ST", "WT"] as const).map((tipe) => {
-          const items = strategiGroups[tipe] || [];
-          return (
-            <div key={tipe} style={{ background: "#ffffff", border: "1px solid #e5e7eb", borderRadius: 12, padding: 16 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                <h4 style={{ margin: 0, fontSize: 14, fontWeight: 700, color: "#1f2937" }}>
-                  {TIPE_STRATEGI_LABEL[tipe]}
-                </h4>
-                <button
-                  onClick={() => openAddStrategi(tipe)}
-                  style={{
-                    background: "#f59e0b",
-                    border: "none",
-                    borderRadius: 6,
-                    padding: "4px 10px",
-                    color: "#1c1917",
-                    fontSize: 12,
-                    fontWeight: 600,
-                    cursor: "pointer",
-                  }}
-                >
-                  + Tambah
-                </button>
+                        <option value="S">S - Kekuatan</option>
+                        <option value="W">W - Kelemahan</option>
+                        <option value="O">O - Peluang</option>
+                        <option value="T">T - Ancaman</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label style={labelStyle}>Urutan</label>
+                      <input
+                        type="number"
+                        value={form.urutan}
+                        onChange={(e) =>
+                          setForm({ ...form, urutan: parseInt(e.target.value) || 1 })
+                        }
+                        style={inputStyle}
+                      />
+                    </div>
+                    <div>
+                      <label style={labelStyle}>Deskripsi</label>
+                      <textarea
+                        rows={3}
+                        value={form.deskripsi}
+                        onChange={(e) => setForm({ ...form, deskripsi: e.target.value })}
+                        style={{ ...inputStyle, resize: "vertical" }}
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div>
+                      <label style={labelStyle}>Tipe Strategi</label>
+                      <select
+                        value={form.tipe}
+                        onChange={(e) => setForm({ ...form, tipe: e.target.value })}
+                        style={inputStyle}
+                      >
+                        <option value="SO">SO - Pertumbuhan</option>
+                        <option value="WO">WO - Perbaikan</option>
+                        <option value="ST">ST - Kompetitif</option>
+                        <option value="WT">WT - Defensif</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label style={labelStyle}>Urutan</label>
+                      <input
+                        type="number"
+                        value={form.urutan}
+                        onChange={(e) =>
+                          setForm({ ...form, urutan: parseInt(e.target.value) || 1 })
+                        }
+                        style={inputStyle}
+                      />
+                    </div>
+                    <div>
+                      <label style={labelStyle}>Strategi</label>
+                      <textarea
+                        rows={3}
+                        value={form.strategi}
+                        onChange={(e) => setForm({ ...form, strategi: e.target.value })}
+                        style={{ ...inputStyle, resize: "vertical" }}
+                      />
+                    </div>
+                  </>
+                )}
               </div>
-              {items.length === 0 ? (
-                <p style={{ color: "#6b7280", fontSize: 13, fontStyle: "italic" }}>Belum ada strategi</p>
-              ) : (
-                <ul style={{ margin: 0, paddingLeft: 20 }}>
-                  {items
-                    .sort((a, b) => a.urutan - b.urutan)
-                    .map((item) => (
-                      <li
-                        key={item.id}
-                        style={{ marginBottom: 6, fontSize: 13, lineHeight: 1.5, color: "#111827", cursor: "pointer" }}
-                        onClick={() => openEditStrategi(item)}
-                      >
-                        {item.strategi}
-                      </li>
-                    ))}
-                </ul>
-              )}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Modal */}
-      {modal && (
-        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", display: "flex", alignItems: "center", justifyContent: "center", padding: 16, zIndex: 999 }}>
-          <div style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 16, width: "100%", maxWidth: 480, maxHeight: "90vh", overflowY: "auto" }}>
-            <div style={{ padding: "14px 20px", borderBottom: "1px solid #e5e7eb", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <h3 style={{ margin: 0, fontSize: 15, fontWeight: 600 }}>
-                {editType === "swot" ? (editingId ? "Edit Poin SWOT" : "Tambah Poin SWOT") : editingId ? "Edit Strategi" : "Tambah Strategi"}
-              </h3>
-              <button onClick={() => setModal(false)} style={{ background: "none", border: "none", cursor: "pointer", color: "#6b7280", fontSize: 18 }}>✕</button>
-            </div>
-            <div style={{ padding: "16px 20px", display: "flex", flexDirection: "column", gap: 12 }}>
-              {editType === "swot" ? (
-                <>
-                  <div>
-                    <label style={labelStyle}>Kategori</label>
-                    <select value={form.kategori} onChange={(e) => setForm({ ...form, kategori: e.target.value })} style={inputStyle}>
-                      <option value="S">S - Kekuatan</option>
-                      <option value="W">W - Kelemahan</option>
-                      <option value="O">O - Peluang</option>
-                      <option value="T">T - Ancaman</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label style={labelStyle}>Urutan</label>
-                    <input type="number" value={form.urutan} onChange={(e) => setForm({ ...form, urutan: parseInt(e.target.value) || 1 })} style={inputStyle} />
-                  </div>
-                  <div>
-                    <label style={labelStyle}>Deskripsi</label>
-                    <textarea rows={3} value={form.deskripsi} onChange={(e) => setForm({ ...form, deskripsi: e.target.value })} style={{ ...inputStyle, resize: "vertical" }} />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div>
-                    <label style={labelStyle}>Tipe Strategi</label>
-                    <select value={form.tipe} onChange={(e) => setForm({ ...form, tipe: e.target.value })} style={inputStyle}>
-                      <option value="SO">SO - Pertumbuhan</option>
-                      <option value="WO">WO - Perbaikan</option>
-                      <option value="ST">ST - Kompetitif</option>
-                      <option value="WT">WT - Defensif</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label style={labelStyle}>Urutan</label>
-                    <input type="number" value={form.urutan} onChange={(e) => setForm({ ...form, urutan: parseInt(e.target.value) || 1 })} style={inputStyle} />
-                  </div>
-                  <div>
-                    <label style={labelStyle}>Strategi</label>
-                    <textarea rows={3} value={form.strategi} onChange={(e) => setForm({ ...form, strategi: e.target.value })} style={{ ...inputStyle, resize: "vertical" }} />
-                  </div>
-                </>
-              )}
-            </div>
-            <div style={{ padding: "12px 20px", borderTop: "1px solid #e5e7eb", display: "flex", justifyContent: editingId ? "space-between" : "flex-end", alignItems: "center" }}>
-              {editingId && (
-                <button onClick={handleDelete} style={{ background: "none", border: "none", color: "#dc2626", fontSize: 13, display: "flex", alignItems: "center", gap: 4, cursor: "pointer" }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd"/></svg>
-                  Hapus
-                </button>
-              )}
-              <div style={{ display: "flex", gap: 8 }}>
-                <button onClick={() => setModal(false)} style={{ padding: "7px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "transparent", color: "#374151", fontSize: 13, cursor: "pointer" }}>Batal</button>
-                <button onClick={handleSubmit} disabled={saving} style={{ padding: "7px 18px", borderRadius: 8, border: "none", background: "#f59e0b", color: "#1c1917", fontSize: 13, fontWeight: 600, cursor: saving ? "not-allowed" : "pointer" }}>
-                  {saving ? "Menyimpan..." : "Simpan"}
-                </button>
+              <div
+                style={{
+                  padding: "12px 20px",
+                  borderTop: "1px solid #e5e7eb",
+                  display: "flex",
+                  justifyContent: editingId ? "space-between" : "flex-end",
+                  alignItems: "center",
+                  // Extra bottom padding on mobile for safe area
+                  paddingBottom: isMobile ? "max(12px, env(safe-area-inset-bottom))" : 12,
+                }}
+              >
+                {editingId && (
+                  <button
+                    onClick={handleDelete}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: "#dc2626",
+                      fontSize: 13,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 4,
+                      cursor: "pointer",
+                      padding: "8px 0",
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Hapus
+                  </button>
+                )}
+                <div style={{ display: "flex", gap: 8 }}>
+                  <button
+                    onClick={() => setModal(false)}
+                    style={{
+                      padding: isMobile ? "9px 16px" : "7px 16px",
+                      borderRadius: 8,
+                      border: "1px solid #d1d5db",
+                      background: "transparent",
+                      color: "#374151",
+                      fontSize: 13,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Batal
+                  </button>
+                  <button
+                    onClick={handleSubmit}
+                    disabled={saving}
+                    style={{
+                      padding: isMobile ? "9px 18px" : "7px 18px",
+                      borderRadius: 8,
+                      border: "none",
+                      background: "#f59e0b",
+                      color: "#1c1917",
+                      fontSize: 13,
+                      fontWeight: 600,
+                      cursor: saving ? "not-allowed" : "pointer",
+                    }}
+                  >
+                    {saving ? "Menyimpan..." : "Simpan"}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 }
-
-const labelStyle: React.CSSProperties = {
-  display: "block",
-  fontSize: 11,
-  color: "#4b5563",
-  marginBottom: 5,
-  fontWeight: 600,
-  textTransform: "uppercase",
-  letterSpacing: "0.05em",
-};

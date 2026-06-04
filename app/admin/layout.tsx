@@ -62,7 +62,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               marginBottom: "6px",
             }}
           >
-            Fano Admin
+            Fona Admin
           </div>
           <div
             style={{
@@ -319,7 +319,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 flex: 1,
               }}
             >
-              Fano Admin
+              Fona Admin
             </div>
           )}
 
