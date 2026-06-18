@@ -4,34 +4,43 @@ import { useEffect } from "react";
 
 const teamMembers = [
   {
-    initials: "DU",
-    role: "Direktur Utama",
-    title: "Sekutu Komplementer",
+    initials: "FJ",
+    role: "Direktur Bidang Legal dan Kepatuhan",
+    title: "Fajar",
     responsibilities: [
-      "Pimpinan umum & pengawasan operasional",
-      "Business development & hubungan eksternal",
-      "Supervisi kualitas seluruh layanan",
+      "Mengelola aspek hukum organisasi",
+      "Menyusun dan meninjau perjanjian",
+      "Memastikan kepatuhan terhadap peraturan dan tata kelola",
     ],
   },
   {
-    initials: "KS",
-    role: "Konsultan Senior Koperasi",
-    title: "Tenaga Ahli Kelembagaan & Keuangan",
+    initials: "OL",
+    role: "Direktur Bidang Keuangan",
+    title: "Olla",
     responsibilities: [
-      "Konsultasi perkoperasian & regulasi",
-      "Penyusunan ART, Persus, SOP & SOM",
-      "Laporan keuangan & perpajakan",
-      "Narasumber pelatihan anggota",
+      "Mengelola perencanaan dan pengendalian keuangan",
+      "Menyusun anggaran dan laporan keuangan",
+      "Mengawasi investasi, pendanaan, dan manajemen risiko keuangan",
     ],
   },
   {
-    initials: "KD",
-    role: "Konsultan Digital",
-    title: "Tenaga Ahli Teknologi",
+    initials: "HD",
+    role: "Direktur Bidang Teknologi Informasi",
+    title: "Hendar",
     responsibilities: [
-      "Pemasaran aplikasi operasional koperasi",
-      "Penyusunan Rencana Kerja & RAPBK",
-      "Pendampingan adopsi teknologi digital",
+      "Mengembangkan strategi transformasi digital",
+      "Mengelola infrastruktur dan keamanan sistem informasi",
+      "Mengawasi pengembangan aplikasi, data, dan inovasi teknologi",
+    ],
+  },
+  {
+    initials: "LR",
+    role: "Komisaris",
+    title: "Lia & Rasid",
+    responsibilities: [
+      "Mengawasi jalannya perusahaan",
+      "Memberikan nasihat kepada direksi",
+      "Memastikan kepentingan pemegang saham terpenuhi",
     ],
   },
 ];
