@@ -5,107 +5,36 @@ import { useEffect, useState, useCallback, useRef } from "react";
 const portfolioItems = [
   {
     num: "01",
-    category: "Kelembagaan",
-    title: "Penyusunan ART & SOP KSP Maju Bersama",
-    desc: "Penyusunan Anggaran Rumah Tangga, Peraturan Khusus, dan SOP operasional lengkap untuk koperasi simpan pinjam dengan 450 anggota aktif.",
-    tags: ["ART", "SOP", "KSP"],
-    result: "Dokumen terstandar sesuai regulasi terkini",
-    duration: "14 hari",
+    category: "Digital",
+    title: "Pendampingan Digitalisasi Kopertaci",
+    desc: "Pendampingan tim Fona Mitra Konsultan dalam rangka digitalisasi koperasi. Layanan pembeli akan menggunakan sistem aplikasi digital, disertai penyusunan ART, SOP, SOM, dan Peraturan Khusus (Persus) sebagai landasan kelembagaan.",
+    tags: ["Digitalisasi", "ART", "SOP", "SOM", "Persus"],
+    result: "Kelembagaan tertata & siap adopsi sistem digital",
+    duration: "Ongoing",
+    image: "/portofolio/kopertaci.jpg",
   },
   {
     num: "02",
     category: "Keuangan",
-    title: "Laporan Keuangan Tahunan KSPPS Amanah",
-    desc: "Penyusunan laporan keuangan lengkap (neraca, SHU, arus kas) dan pelaporan perpajakan tahunan sesuai SAK ETAP untuk koperasi syariah.",
-    tags: ["Laporan Keuangan", "Pajak", "KSPPS"],
-    result: "Laporan siap audit & SPT tahunan tepat waktu",
-    duration: "18 hari",
-  },
-  {
-    num: "03",
-    category: "Legalitas",
-    title: "Perubahan Anggaran Dasar Koperasi Sejahtera",
-    desc: "Pendampingan perubahan AD koperasi menyesuaikan regulasi baru, bekerja sama dengan notaris, termasuk pengurusan NIB dan legalitas penuh.",
-    tags: ["Anggaran Dasar", "Notaris", "Legalitas"],
-    result: "AD baru sah & terdaftar di Kemenkop",
-    duration: "21 hari",
-  },
-  {
-    num: "04",
-    category: "Pelatihan",
-    title: "Pelatihan Literasi Keuangan Anggota Koptan Subur",
-    desc: "Narasumber pelatihan dua hari untuk 120 anggota koperasi tani tentang manajemen simpan pinjam, pembukuan sederhana, dan literasi keuangan.",
-    tags: ["Pelatihan", "Literasi Keuangan", "Koperasi Tani"],
-    result: "120 anggota terlatih, modul pelatihan tersedia",
-    duration: "2 hari",
-  },
-  {
-    num: "05",
-    category: "Perencanaan",
-    title: "Renstra & Roadmap 5 Tahun Koperasi Karya Mandiri",
-    desc: "Penyusunan Rencana Strategis 5 tahun, RAPBK, dan Roadmap pengembangan bisnis koperasi karyawan BUMN dengan total aset Rp 12 miliar.",
-    tags: ["Renstra", "RAPBK", "Roadmap"],
-    result: "Dokumen strategis 5 tahun siap implementasi",
-    duration: "21 hari",
-  },
-  {
-    num: "06",
-    category: "Pembiayaan",
-    title: "Pendampingan Proposal LPDB KSP Harapan Jaya",
-    desc: "Pendampingan intensif penyusunan proposal pembiayaan ke LPDB-KUMKM senilai Rp 500 juta, termasuk studi kelayakan dan analisis keuangan.",
-    tags: ["LPDB", "Proposal", "Studi Kelayakan"],
-    result: "Proposal disetujui, pencairan Rp 500 juta",
-    duration: "45 hari",
-  },
-  {
-    num: "07",
-    category: "Digital",
-    title: "Implementasi Aplikasi Koperasi Digital Kopwan Melati",
-    desc: "Pendampingan adopsi dan implementasi aplikasi manajemen koperasi berbasis digital untuk koperasi wanita dengan 280 anggota.",
-    tags: ["Aplikasi Digital", "Implementasi", "Kopwan"],
-    result: "Sistem digital live, 280 anggota terdaftar",
-    duration: "30 hari",
-  },
-  {
-    num: "08",
-    category: "Konsultasi",
-    title: "Retainer Bulanan Koperasi Karyawan PT Nusantara",
-    desc: "Layanan konsultasi bulanan berkelanjutan mencakup regulasi, tata kelola, review dokumen, dan pemecahan masalah operasional koperasi karyawan.",
-    tags: ["Retainer", "Konsultasi", "Koperasi Karyawan"],
-    result: "12 bulan pendampingan aktif & berkelanjutan",
+    title: "Pembuatan Sistem Laporan Keuangan Koperasi Mitra Husada",
+    desc: "Perancangan dan pembuatan sistem laporan keuangan untuk Koperasi Mitra Husada, guna mendukung pencatatan transaksi yang lebih rapi, transparan, dan memudahkan penyusunan laporan keuangan secara berkala.",
+    tags: ["Laporan Keuangan", "Sistem Pencatatan", "Koperasi"],
+    result: "Sistem laporan keuangan terimplementasi",
     duration: "Ongoing",
+    image: "/portofolio/mitra-husada.png",
   },
 ];
 
-const categories = ["Semua", "Kelembagaan", "Keuangan", "Legalitas", "Pelatihan", "Perencanaan", "Pembiayaan", "Digital", "Konsultasi"];
+const categories = ["Semua", "Digital", "Keuangan"];
 
 // Warna kategori disesuaikan dengan nuansa navy–teal–cream
 const categoryColors: Record<string, string> = {
-  Kelembagaan: "#1d6b6f", // teal gelap
-  Keuangan:    "#254a76", // navy
-  Legalitas:   "#5a3e1e", // cokelat tua
-  Pelatihan:   "#5b3f8a", // ungu tua
-  Perencanaan: "#2f8f8a", // teal
-  Pembiayaan:  "#7a2e2e", // maroon
-  Digital:     "#1e4b7a", // navy muda
-  Konsultasi:  "#6b6b1e", // olive tua
+  Digital:   "#1e4b7a", // navy muda
+  Keuangan:  "#254a76", // navy
 };
 
-// Fungsi untuk mendapatkan gambar unik per item (placeholder)
-const getImageForItem = (item: typeof portfolioItems[0]) => {
-  const idMap: Record<string, number> = {
-    "01": 25,
-    "02": 26,
-    "03": 28,
-    "04": 30,
-    "05": 32,
-    "06": 34,
-    "07": 36,
-    "08": 38,
-  };
-  const picId = idMap[item.num] || 42;
-  return `https://picsum.photos/id/${picId}/600/500`;
-};
+// Gambar diambil dari folder public/portofolio
+const getImageForItem = (item: typeof portfolioItems[0]) => item.image;
 
 export default function PortfolioPage() {
   const [active, setActive] = useState("Semua");
@@ -498,8 +427,8 @@ export default function PortfolioPage() {
         <div className="max-w-7xl mx-auto px-10">
           <div className="stats-grid">
             {[
-              { value: "8+", label: "Proyek Selesai" },
-              { value: "6", label: "Kategori Layanan" },
+              { value: "2+", label: "Proyek Selesai" },
+              { value: "2", label: "Kategori Layanan" },
               { value: "100%", label: "Klien Puas" },
               { value: "2026", label: "Mulai Beroperasi" },
             ].map((s, i) => (
