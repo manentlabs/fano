@@ -29,7 +29,7 @@ export default function AdminLogin() {
       if (result?.error) {
         setError("Email atau password tidak valid.");
       } else {
-        router.push("/admin/dashboard"); // ganti dengan halaman dashboard admin
+        router.push("/admin/dashboard");
       }
     } catch (err) {
       setError("Terjadi kesalahan. Silakan coba lagi.");
@@ -43,14 +43,22 @@ export default function AdminLogin() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600&display=swap');
 
-        /* Hanya style untuk komponen ini – tidak mengganggu navbar global */
+        :root {
+          --navy-deep: #0a1e30;
+          --navy: #254a76;
+          --teal: #2f8f8a;
+          --teal-light: #5fc9c2;
+          --teal-dark: #1d6b6f;
+          --cream: #f4f7f7;
+        }
+
+        /* Section — navy deep (konsisten dengan header/footer) */
         .login-section {
-          background: #0f1623; /* gelap seperti header portfolio */
+          background: var(--navy);
           padding: 64px 0;
           min-height: calc(100vh - 80px);
         }
 
-        /* Container identik dengan portfolio: max-w-7xl, mx-auto, px-10 */
         .login-container {
           max-width: 80rem;
           margin: 0 auto;
@@ -71,14 +79,14 @@ export default function AdminLogin() {
         .eyebrow-line {
           width: 28px;
           height: 1px;
-          background: #d4b06a;
+          background: var(--teal-light);
         }
         .eyebrow-text {
           font-size: 11px;
           letter-spacing: 0.22em;
           text-transform: uppercase;
           font-weight: 500;
-          color: #d4b06a;
+          color: var(--teal-light);
         }
 
         /* Brand block */
@@ -90,13 +98,13 @@ export default function AdminLogin() {
         .brand-emblem {
           width: 44px;
           height: 44px;
-          border: 1px solid rgba(212, 176, 106, 0.35);
+          border: 1px solid rgba(95, 201, 194, 0.4);
           display: flex;
           align-items: center;
           justify-content: center;
           font-size: 22px;
           margin-bottom: 18px;
-          background: rgba(212, 176, 106, 0.07);
+          background: rgba(95, 201, 194, 0.08);
         }
         .brand-title {
           font-family: 'Playfair Display', serif;
@@ -107,7 +115,7 @@ export default function AdminLogin() {
           margin-bottom: 10px;
         }
         .brand-sub {
-          color: #9ca3af;
+          color: #cbd5e1;
           font-size: 13.5px;
           font-weight: 300;
           line-height: 1.7;
@@ -129,12 +137,12 @@ export default function AdminLogin() {
         .feature-dot {
           width: 6px;
           height: 6px;
-          background: #d4b06a;
+          background: var(--teal-light);
           flex-shrink: 0;
           margin-top: 6px;
         }
         .feature-item-title {
-          color: #d4b06a;
+          color: var(--teal-light);
           font-size: 10px;
           letter-spacing: 0.12em;
           text-transform: uppercase;
@@ -143,16 +151,16 @@ export default function AdminLogin() {
         }
         .feature-item-text {
           font-size: 12.5px;
-          color: #9ca3af;
+          color: #cbd5e1;
           font-weight: 300;
           line-height: 1.6;
         }
 
-        /* Stats strip – gelap */
+        /* Stats strip */
         .stats-strip {
           margin-top: 40px;
-          border-top: 1px solid rgba(212, 176, 106, 0.2);
-          border-bottom: 1px solid rgba(212, 176, 106, 0.2);
+          border-top: 1px solid rgba(95, 201, 194, 0.2);
+          border-bottom: 1px solid rgba(95, 201, 194, 0.2);
           padding: 12px 0;
         }
         .stats-grid {
@@ -162,7 +170,7 @@ export default function AdminLogin() {
         }
         .stat-cell {
           text-align: center;
-          border-right: 1px solid rgba(212, 176, 106, 0.12);
+          border-right: 1px solid rgba(95, 201, 194, 0.15);
         }
         .stat-cell:last-child {
           border-right: none;
@@ -179,30 +187,31 @@ export default function AdminLogin() {
           font-size: 11px;
           letter-spacing: 0.12em;
           text-transform: uppercase;
-          color: #6b7280;
+          color: var(--teal-light);
+          font-weight: 500;
         }
 
-        /* KARTU FORM – GELAP */
+        /* Form card — gelap dengan aksen teal */
         .form-card {
           background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(212, 176, 106, 0.2);
+          border: 1px solid rgba(95, 201, 194, 0.25);
           backdrop-filter: blur(2px);
           transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
           overflow: hidden;
         }
         .form-card:hover {
-          border-color: rgba(212, 176, 106, 0.6);
-          box-shadow: 0 8px 32px rgba(212, 176, 106, 0.1);
+          border-color: rgba(95, 201, 194, 0.6);
+          box-shadow: 0 8px 32px rgba(95, 201, 194, 0.1);
           transform: translateY(-3px);
         }
         .form-panel {
           padding: 32px 28px;
         }
 
-        /* Label – emas redup */
+        /* Label */
         .field-label {
           display: block;
-          color: #d4b06a;
+          color: var(--teal-light);
           font-size: 10px;
           letter-spacing: 0.16em;
           text-transform: uppercase;
@@ -221,12 +230,12 @@ export default function AdminLogin() {
           transform: translateY(-50%);
           font-size: 14px;
           pointer-events: none;
-          opacity: 0.6;
+          opacity: 0.7;
         }
         .login-input {
           width: 100%;
           background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(212, 176, 106, 0.25);
+          border: 1px solid rgba(95, 201, 194, 0.3);
           padding: 11px 14px 11px 40px;
           font-size: 13.5px;
           font-family: 'Inter', sans-serif;
@@ -236,16 +245,16 @@ export default function AdminLogin() {
           transition: all 0.2s;
         }
         .login-input:focus {
-          border-color: #d4b06a;
-          background: rgba(212, 176, 106, 0.05);
-          box-shadow: 0 0 0 3px rgba(212, 176, 106, 0.1);
+          border-color: var(--teal-light);
+          background: rgba(95, 201, 194, 0.06);
+          box-shadow: 0 0 0 3px rgba(95, 201, 194, 0.12);
         }
         .login-input::placeholder {
           color: #6b7280;
           font-weight: 300;
         }
 
-        /* Toggle password & forgot link – gelap */
+        /* Toggle password & forgot link */
         .toggle-pw {
           position: absolute;
           right: 12px;
@@ -262,7 +271,7 @@ export default function AdminLogin() {
           transition: color 0.2s;
         }
         .toggle-pw:hover {
-          color: #d4b06a;
+          color: var(--teal-light);
         }
         .forgot-link {
           background: none;
@@ -275,14 +284,14 @@ export default function AdminLogin() {
           transition: color 0.2s;
         }
         .forgot-link:hover {
-          color: #d4b06a;
+          color: var(--teal-light);
         }
 
-        /* Tombol tetap emas */
+        /* Tombol submit — gradient teal (selaras dengan halaman lain) */
         .btn-submit {
           width: 100%;
-          background: #d4b06a;
-          color: #0f1623;
+          background: linear-gradient(135deg, var(--teal-light), var(--teal));
+          color: #082022;
           padding: 13px 28px;
           font-size: 12px;
           font-weight: 600;
@@ -292,7 +301,7 @@ export default function AdminLogin() {
           cursor: pointer;
           position: relative;
           overflow: hidden;
-          transition: background 0.2s, transform 0.15s;
+          transition: filter 0.2s, transform 0.15s;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -300,7 +309,7 @@ export default function AdminLogin() {
           font-family: 'Inter', sans-serif;
         }
         .btn-submit:hover:not(:disabled) {
-          background: #e2c47f;
+          filter: brightness(1.08);
           transform: translateY(-2px);
         }
         .btn-submit:active:not(:disabled) {
@@ -314,31 +323,23 @@ export default function AdminLogin() {
         .spinner {
           width: 13px;
           height: 13px;
-          border: 2px solid rgba(15, 22, 35, 0.25);
-          border-top-color: #0f1623;
+          border: 2px solid rgba(8, 32, 34, 0.25);
+          border-top-color: #082022;
           border-radius: 50%;
           animation: spin 0.7s linear infinite;
           flex-shrink: 0;
         }
 
         @keyframes fadeUp {
-          from {
-            opacity: 0;
-            transform: translateY(24px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(24px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes spin {
-          to {
-            transform: rotate(360deg);
-          }
+          to { transform: rotate(360deg); }
         }
 
-        /* Error box – gelap dengan aksen merah */
+        /* Error box */
         .error-box {
           background: rgba(239, 68, 68, 0.1);
           border-left: 3px solid #ef4444;
@@ -362,7 +363,7 @@ export default function AdminLogin() {
         .footer-line {
           flex: 1;
           height: 1px;
-          background: rgba(212, 176, 106, 0.2);
+          background: rgba(95, 201, 194, 0.2);
         }
         .footer-text {
           color: #6b7280;
@@ -384,21 +385,11 @@ export default function AdminLogin() {
           }
         }
         @media (max-width: 768px) {
-          .login-section {
-            padding: 48px 0;
-          }
-          .brand-title {
-            font-size: 26px;
-          }
-          .form-panel {
-            padding: 24px 20px;
-          }
-          .login-container {
-            padding: 0 20px;
-          }
-          .stat-value {
-            font-size: 24px;
-          }
+          .login-section { padding: 48px 0; }
+          .brand-title { font-size: 26px; }
+          .form-panel { padding: 24px 20px; }
+          .login-container { padding: 0 20px; }
+          .stat-value { font-size: 24px; }
         }
       `}</style>
 
@@ -487,7 +478,7 @@ export default function AdminLogin() {
                         id="email"
                         className="login-input"
                         type="email"
-                        placeholder="admin@fonamitra.id"
+                        placeholder="admin@fona.site"
                         autoComplete="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}

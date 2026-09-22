@@ -4,9 +4,9 @@ import { useEffect } from "react";
 
 const teamMembers = [
   {
-    initials: "FJ",
+    initials: "FP",
     role: "Direktur Bidang Legal dan Kepatuhan",
-    title: "Fajar",
+    title: "Fajar Perkasa",
     responsibilities: [
       "Mengelola aspek hukum organisasi",
       "Menyusun dan meninjau perjanjian",
@@ -14,9 +14,9 @@ const teamMembers = [
     ],
   },
   {
-    initials: "OL",
+    initials: "OD",
     role: "Direktur Bidang Keuangan",
-    title: "Olla",
+    title: "Olla Dina Aulia",
     responsibilities: [
       "Mengelola perencanaan dan pengendalian keuangan",
       "Menyusun anggaran dan laporan keuangan",
@@ -24,23 +24,13 @@ const teamMembers = [
     ],
   },
   {
-    initials: "HD",
+    initials: "HN",
     role: "Direktur Bidang Teknologi Informasi",
-    title: "Hendar",
+    title: "Hendar Nugraha",
     responsibilities: [
       "Mengembangkan strategi transformasi digital",
       "Mengelola infrastruktur dan keamanan sistem informasi",
       "Mengawasi pengembangan aplikasi, data, dan inovasi teknologi",
-    ],
-  },
-  {
-    initials: "LR",
-    role: "Komisaris",
-    title: "Lia & Rasid",
-    responsibilities: [
-      "Mengawasi jalannya perusahaan",
-      "Memberikan nasihat kepada direksi",
-      "Memastikan kepentingan pemegang saham terpenuhi",
     ],
   },
 ];
@@ -68,6 +58,15 @@ const missionPoints = [
   },
 ];
 
+const values = [
+  { icon: "🏅", label: "Profesionalisme", desc: "Setiap layanan dikerjakan dengan standar tinggi dan tanggung jawab penuh." },
+  { icon: "🔒", label: "Integritas", desc: "Kejujuran dan transparansi menjadi landasan hubungan kami dengan klien." },
+  { icon: "🎯", label: "Komprehensif", desc: "Solusi satu atap yang mencakup seluruh kebutuhan koperasi Anda." },
+  { icon: "⚡", label: "Inovatif", desc: "Memanfaatkan teknologi digital untuk layanan yang lebih efisien." },
+  { icon: "📈", label: "Berdampak", desc: "Setiap pendampingan dirancang untuk memberi dampak nyata bagi koperasi." },
+  { icon: "🤝", label: "Kemitraan", desc: "Kami bukan sekadar vendor, melainkan mitra jangka panjang koperasi Anda." },
+];
+
 export default function AboutPage() {
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -92,6 +91,15 @@ export default function AboutPage() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500&display=swap');
 
+        :root {
+          --navy-deep: #0a1e30;
+          --navy: #254a76;
+          --teal: #2f8f8a;
+          --teal-light: #5fc9c2;
+          --teal-dark: #1d6b6f;
+          --cream: #f4f7f7;
+        }
+
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(24px); }
           to   { opacity: 1; transform: translateY(0); }
@@ -109,47 +117,31 @@ export default function AboutPage() {
         }
         .reveal-left.visible { opacity: 1; transform: translateX(0); }
 
-        /* Page header */
+        /* Page header — selaras dengan hero Home */
         .about-header {
-          background: #0f1623;
-          border-bottom: 1px solid rgba(212,176,106,0.15);
+          background: var(--navy);
+          border-bottom: 1px solid rgba(47,143,138,0.15);
           padding: 52px 0 44px;
         }
 
-        /* Section spacing */
-        .about-section {
-          padding: 64px 0;
-        }
-        .about-section-alt {
-          padding: 64px 0;
-          background: #f5f0e8;
-        }
+        .about-section { padding: 64px 0; }
+        .about-section-alt { padding: 64px 0; background: var(--cream); }
 
-        /* Eyebrow */
-        .eyebrow {
-          display: flex; align-items: center; gap: 12px;
-          margin-bottom: 10px;
-        }
-        .eyebrow-line {
-          width: 28px; height: 1px;
-        }
-        .eyebrow-text {
-          font-size: 11px; letter-spacing: 0.22em;
-          text-transform: uppercase; font-weight: 500;
-        }
+        .eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+        .eyebrow-line { width: 28px; height: 1px; }
+        .eyebrow-text { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; }
 
-        /* Vision card */
+        /* Vision card — navy dengan aksen teal */
         .vision-card {
-          border: 1px solid rgba(212,176,106,0.25);
-          padding: 32px;
-          position: relative;
-          overflow: hidden;
+          border: 1px solid rgba(47,143,138,0.3);
+          padding: 32px; position: relative; overflow: hidden;
+          background: var(--navy);
         }
         .vision-card::before {
           content: '"';
           position: absolute; top: -10px; right: 20px;
           font-family: 'Playfair Display', serif;
-          font-size: 120px; color: rgba(212,176,106,0.06);
+          font-size: 120px; color: rgba(95,201,194,0.08);
           line-height: 1;
         }
 
@@ -157,12 +149,12 @@ export default function AboutPage() {
         .mission-item {
           display: flex; gap: 16px; align-items: flex-start;
           padding: 16px 0;
-          border-bottom: 1px solid rgba(15,22,35,0.07);
+          border-bottom: 1px solid rgba(37,74,118,0.08);
         }
         .mission-item:last-child { border-bottom: none; }
         .mission-icon {
           width: 36px; height: 36px; flex-shrink: 0;
-          border: 1px solid rgba(212,176,106,0.4);
+          border: 1px solid rgba(47,143,138,0.45);
           display: flex; align-items: center; justify-content: center;
           font-size: 15px;
         }
@@ -170,25 +162,25 @@ export default function AboutPage() {
         /* Team card */
         .team-card {
           background: #fff;
-          border: 1px solid rgba(139,111,46,0.12);
+          border: 1px solid rgba(29,107,111,0.12);
           padding: 28px 24px;
           position: relative;
           transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
         }
         .team-card:hover {
-          border-color: rgba(212,176,106,0.5);
+          border-color: rgba(47,143,138,0.55);
           transform: translateY(-3px);
-          box-shadow: 0 8px 32px rgba(212,176,106,0.1);
+          box-shadow: 0 8px 32px rgba(29,107,111,0.14);
         }
         .team-avatar {
           width: 56px; height: 56px;
-          border: 1px solid rgba(212,176,106,0.5);
+          border: 1px solid rgba(47,143,138,0.5);
           display: flex; align-items: center; justify-content: center;
           margin-bottom: 16px;
           font-family: 'Playfair Display', serif;
           font-size: 18px; font-weight: 600;
-          color: #d4b06a;
-          background: rgba(212,176,106,0.06);
+          color: var(--teal);
+          background: rgba(47,143,138,0.06);
         }
         .team-responsibility {
           display: flex; align-items: flex-start; gap: 8px;
@@ -198,74 +190,48 @@ export default function AboutPage() {
         }
         .team-responsibility::before {
           content: '–';
-          color: #d4b06a; font-size: 12px;
+          color: var(--teal); font-size: 12px;
           flex-shrink: 0; margin-top: 1px;
         }
 
-        /* Stat strip */
-        .stat-strip {
-          background: #0f1623;
-          padding: 40px 0;
-          border-top: 1px solid rgba(212,176,106,0.1);
-          border-bottom: 1px solid rgba(212,176,106,0.1);
-        }
-        .stat-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 0;
-        }
-        .stat-cell {
-          padding: 0 32px;
-          border-right: 1px solid rgba(212,176,106,0.12);
-          text-align: center;
-        }
-        .stat-cell:last-child { border-right: none; }
-
-        /* Values */
         .value-item {
           padding: 20px 24px;
-          border: 1px solid rgba(139,111,46,0.1);
+          border: 1px solid rgba(29,107,111,0.1);
           background: #fff;
           transition: border-color 0.2s;
         }
-        .value-item:hover { border-color: rgba(212,176,106,0.4); }
+        .value-item:hover { border-color: rgba(47,143,138,0.45); }
 
         /* Commitment banner */
         .commitment-banner {
-          background: #0f1623;
-          border: 1px solid rgba(212,176,106,0.15);
+          background: var(--navy);
+          border: 1px solid rgba(47,143,138,0.2);
           padding: 36px 40px;
           text-align: center;
           margin-top: 48px;
           transition: border-color 0.3s;
         }
-        .commitment-banner:hover { border-color: rgba(212,176,106,0.3); }
+        .commitment-banner:hover { border-color: rgba(47,143,138,0.4); }
 
         .btn-primary {
-          background: #d4b06a; color: #0f1623;
-          padding: 12px 28px; font-size: 13px; font-weight: 500;
+          background: linear-gradient(135deg, var(--teal-light), var(--teal));
+          color: #082022;
+          padding: 12px 28px; font-size: 13px; font-weight: 600;
           letter-spacing: 0.08em; text-transform: uppercase;
           border: none; cursor: pointer;
-          transition: background 0.2s, transform 0.15s;
+          transition: filter 0.2s, transform 0.15s;
           display: inline-block;
         }
-        .btn-primary:hover { background: #e2c47f; transform: translateY(-2px); }
+        .btn-primary:hover { filter: brightness(1.08); transform: translateY(-2px); }
 
         /* Mobile */
         @media (max-width: 768px) {
           .about-header { padding: 40px 0 32px; }
           .about-section, .about-section-alt { padding: 48px 0; }
-          .vision-mission-grid {
-            grid-template-columns: 1fr !important;
-          }
-          .team-grid {
-            grid-template-columns: 1fr !important;
-          }
-          .stat-grid {
-            grid-template-columns: 1fr !important;
-            gap: 24px;
-          }
-          .stat-cell { border-right: none; border-bottom: 1px solid rgba(212,176,106,0.12); padding: 0 0 24px; }
+          .vision-mission-grid { grid-template-columns: 1fr !important; }
+          .team-grid { grid-template-columns: 1fr !important; }
+          .stat-grid { grid-template-columns: 1fr !important; gap: 24px; }
+          .stat-cell { border-right: none; border-bottom: 1px solid rgba(47,143,138,0.15); padding: 0 0 24px; }
           .stat-cell:last-child { border-bottom: none; padding-bottom: 0; }
           .values-grid { grid-template-columns: 1fr !important; }
           .commitment-banner { padding: 28px 20px; }
@@ -277,8 +243,8 @@ export default function AboutPage() {
       <section className="about-header">
         <div className="max-w-7xl mx-auto px-10">
           <div className="eyebrow" style={{ animation: "fadeUp 0.7s ease both" }}>
-            <div className="eyebrow-line" style={{ background: "#d4b06a" }} />
-            <span className="eyebrow-text" style={{ color: "#d4b06a" }}>
+            <div className="eyebrow-line" style={{ background: "#5fc9c2" }} />
+            <span className="eyebrow-text" style={{ color: "#5fc9c2" }}>
               CV Fona Mitra Konsultan
             </span>
           </div>
@@ -303,47 +269,19 @@ export default function AboutPage() {
               animation: "fadeUp 0.7s 0.2s ease both",
             }}
           >
-            Mitra konsultan perkoperasian profesional yang hadir untuk mendampingi
-            koperasi Indonesia tumbuh dengan tata kelola yang kuat, dokumen yang
-            terstandar, dan strategi yang tepat.
+            Hadir sebagai mitra strategis bagi koperasi Indonesia dalam membangun
+            tata kelola yang kuat, administrasi dan dokumen yang terstandar, serta
+            strategi pengembangan yang tepat dan berkelanjutan.
           </p>
         </div>
       </section>
-
-      {/* ── Stat Strip ── */}
-      <div className="stat-strip">
-        <div className="max-w-7xl mx-auto px-10">
-          <div className="stat-grid">
-            {[
-              { value: "127K+", label: "Koperasi Aktif di Indonesia" },
-              { value: "8", label: "Paket Layanan Profesional" },
-              { value: "One-Stop", label: "Solusi Lengkap Koperasi" },
-            ].map((s, i) => (
-              <div key={i} className="stat-cell">
-                <div
-                  style={{
-                    fontFamily: "'Playfair Display', serif",
-                    fontWeight: 600, fontSize: 32,
-                    color: "#f5f0e8", lineHeight: 1, marginBottom: 6,
-                  }}
-                >
-                  {s.value}
-                </div>
-                <div style={{ fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "#6b7280" }}>
-                  {s.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
 
       {/* ── Visi & Misi ── */}
       <section className="about-section">
         <div className="max-w-7xl mx-auto px-10">
           <div className="eyebrow reveal-left">
-            <div className="eyebrow-line" style={{ background: "#8b6f2e" }} />
-            <span className="eyebrow-text" style={{ color: "#8b6f2e" }}>Visi & Misi</span>
+            <div className="eyebrow-line" style={{ background: "#1d6b6f" }} />
+            <span className="eyebrow-text" style={{ color: "#1d6b6f" }}>Visi & Misi</span>
           </div>
 
           <h2
@@ -351,7 +289,7 @@ export default function AboutPage() {
             style={{
               fontFamily: "'Playfair Display', serif",
               fontWeight: 600, fontSize: 26,
-              color: "#0f1623", marginBottom: 36, lineHeight: 1.3,
+              color: "#254a76", marginBottom: 36, lineHeight: 1.3,
             }}
           >
             Fondasi yang Mengarahkan Setiap Langkah Kami
@@ -362,8 +300,8 @@ export default function AboutPage() {
             style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}
           >
             {/* Visi */}
-            <div className="vision-card reveal" style={{ background: "#0f1623" }}>
-              <div style={{ color: "#d4b06a", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 500, marginBottom: 12 }}>
+            <div className="vision-card reveal">
+              <div style={{ color: "#5fc9c2", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 500, marginBottom: 12 }}>
                 Visi
               </div>
               <p
@@ -376,8 +314,8 @@ export default function AboutPage() {
               >
                 Menjadi perusahaan konsultan koperasi terpercaya, inovatif, dan berdampak nyata dalam pemberdayaan gerakan koperasi di Indonesia.
               </p>
-              <div style={{ marginTop: 20, paddingTop: 16, borderTop: "1px solid rgba(212,176,106,0.15)" }}>
-                <span style={{ color: "#d4b06a", fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 300 }}>
+              <div style={{ marginTop: 20, paddingTop: 16, borderTop: "1px solid rgba(47,143,138,0.2)" }}>
+                <span style={{ color: "#5fc9c2", fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 300 }}>
                   "Tumbuh Bersama, Kuat Bersama"
                 </span>
               </div>
@@ -386,8 +324,8 @@ export default function AboutPage() {
             {/* Misi */}
             <div className="reveal" style={{ transitionDelay: "0.1s" }}>
               <div className="eyebrow" style={{ marginBottom: 16 }}>
-                <div className="eyebrow-line" style={{ background: "#8b6f2e" }} />
-                <span className="eyebrow-text" style={{ color: "#8b6f2e" }}>Misi</span>
+                <div className="eyebrow-line" style={{ background: "#1d6b6f" }} />
+                <span className="eyebrow-text" style={{ color: "#1d6b6f" }}>Misi</span>
               </div>
               {missionPoints.map((m, i) => (
                 <div key={i} className="mission-item">
@@ -406,8 +344,8 @@ export default function AboutPage() {
       <section className="about-section-alt">
         <div className="max-w-7xl mx-auto px-10">
           <div className="eyebrow reveal-left">
-            <div className="eyebrow-line" style={{ background: "#8b6f2e" }} />
-            <span className="eyebrow-text" style={{ color: "#8b6f2e" }}>Struktur Tim</span>
+            <div className="eyebrow-line" style={{ background: "#1d6b6f" }} />
+            <span className="eyebrow-text" style={{ color: "#1d6b6f" }}>Struktur Tim</span>
           </div>
 
           <h2
@@ -415,7 +353,7 @@ export default function AboutPage() {
             style={{
               fontFamily: "'Playfair Display', serif",
               fontWeight: 600, fontSize: 26,
-              color: "#0f1623", marginBottom: 8, lineHeight: 1.3,
+              color: "#254a76", marginBottom: 8, lineHeight: 1.3,
             }}
           >
             Profesional di Balik Layanan Kami
@@ -428,7 +366,7 @@ export default function AboutPage() {
               lineHeight: 1.7, maxWidth: 480, marginBottom: 36,
             }}
           >
-            Tim kami terdiri dari 3 tenaga profesional berpengalaman dengan keahlian yang saling melengkapi di bidang kelembagaan, keuangan, dan teknologi koperasi.
+            Tim kami terdiri dari tenaga profesional berpengalaman dengan keahlian yang saling melengkapi di bidang legal, keuangan, dan teknologi koperasi.
           </p>
 
           <div
@@ -444,7 +382,7 @@ export default function AboutPage() {
                 <div className="team-avatar">{m.initials}</div>
                 <div
                   style={{
-                    color: "#d4b06a", fontSize: 10,
+                    color: "#2f8f8a", fontSize: 10,
                     letterSpacing: "0.15em", textTransform: "uppercase",
                     fontWeight: 500, marginBottom: 4,
                   }}
@@ -455,12 +393,12 @@ export default function AboutPage() {
                   style={{
                     fontFamily: "'Playfair Display', serif",
                     fontSize: 17, fontWeight: 600,
-                    color: "#0f1623", marginBottom: 16, lineHeight: 1.3,
+                    color: "#254a76", marginBottom: 16, lineHeight: 1.3,
                   }}
                 >
                   {m.role}
                 </div>
-                <div style={{ borderTop: "1px solid rgba(139,111,46,0.1)", paddingTop: 14 }}>
+                <div style={{ borderTop: "1px solid rgba(29,107,111,0.1)", paddingTop: 14 }}>
                   {m.responsibilities.map((r, j) => (
                     <div key={j} className="team-responsibility">{r}</div>
                   ))}
@@ -475,8 +413,8 @@ export default function AboutPage() {
       <section className="about-section">
         <div className="max-w-7xl mx-auto px-10">
           <div className="eyebrow reveal-left">
-            <div className="eyebrow-line" style={{ background: "#8b6f2e" }} />
-            <span className="eyebrow-text" style={{ color: "#8b6f2e" }}>Nilai Kami</span>
+            <div className="eyebrow-line" style={{ background: "#1d6b6f" }} />
+            <span className="eyebrow-text" style={{ color: "#1d6b6f" }}>Nilai Kami</span>
           </div>
 
           <h2
@@ -484,7 +422,7 @@ export default function AboutPage() {
             style={{
               fontFamily: "'Playfair Display', serif",
               fontWeight: 600, fontSize: 26,
-              color: "#0f1623", marginBottom: 32, lineHeight: 1.3,
+              color: "#254a76", marginBottom: 32, lineHeight: 1.3,
             }}
           >
             Prinsip yang Kami Pegang Teguh
@@ -494,21 +432,14 @@ export default function AboutPage() {
             className="values-grid reveal"
             style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}
           >
-            {[
-              { icon: "🏅", label: "Profesionalisme", desc: "Setiap layanan dikerjakan dengan standar tinggi dan tanggung jawab penuh." },
-              { icon: "🔒", label: "Integritas", desc: "Kejujuran dan transparansi menjadi landasan hubungan kami dengan klien." },
-              { icon: "🎯", label: "Komprehensif", desc: "Solusi satu atap yang mencakup seluruh kebutuhan koperasi Anda." },
-              { icon: "⚡", label: "Inovatif", desc: "Memanfaatkan teknologi digital untuk layanan yang lebih efisien." },
-              { icon: "📈", label: "Berdampak", desc: "Setiap pendampingan dirancang untuk memberi dampak nyata bagi koperasi." },
-              { icon: "🤝", label: "Kemitraan", desc: "Kami bukan sekadar vendor, melainkan mitra jangka panjang koperasi Anda." },
-            ].map((v, i) => (
+            {values.map((v, i) => (
               <div key={i} className="value-item">
                 <div style={{ fontSize: 22, marginBottom: 10 }}>{v.icon}</div>
                 <div
                   style={{
                     fontFamily: "'Playfair Display', serif",
                     fontSize: 15, fontWeight: 600,
-                    color: "#0f1623", marginBottom: 6,
+                    color: "#254a76", marginBottom: 6,
                   }}
                 >
                   {v.label}
@@ -524,7 +455,7 @@ export default function AboutPage() {
           <div className="commitment-banner reveal">
             <div
               style={{
-                color: "#d4b06a", fontSize: 10, letterSpacing: "0.22em",
+                color: "#5fc9c2", fontSize: 10, letterSpacing: "0.22em",
                 textTransform: "uppercase", fontWeight: 500, marginBottom: 12,
               }}
             >
@@ -542,11 +473,18 @@ export default function AboutPage() {
             </p>
             <div
               style={{
-                width: 40, height: 1, background: "rgba(212,176,106,0.4)",
+                width: 40, height: 1, background: "rgba(95,201,194,0.4)",
                 margin: "0 auto 20px",
               }}
             />
-            <button className="btn-primary">Mulai Konsultasi Gratis</button>
+            <a
+              href="https://wa.me/6281807405852?text=Halo%20Fona%20Mitra%20Konsultan%2C%20saya%20ingin%20berkonsultasi."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary"
+            >
+              Mulai Konsultasi Gratis
+            </a>
           </div>
         </div>
       </section>

@@ -5,102 +5,75 @@ import { useEffect } from "react";
 const services = [
   {
     num: "01",
-    icon: "📋",
-    title: "NIB (Nomor Induk Berusaha)",
-    desc: "Pengurusan Nomor Induk Berusaha untuk legalitas usaha.",
-    tag: "Semua Jenis Usaha",
-    duration: "3–7 hari",
-    price: "Rp 200.000 – 300.000",
+    icon: "⚖️",
+    title: "Konsultasi Hukum & Kekayaan Intelektual",
+    desc: "Pendampingan hukum koperasi, penyusunan dan reviu dokumen kelembagaan, serta konsultasi kekayaan intelektual.",
+    tag: "Legal & Kepatuhan",
+    includes: [
+      "Pendampingan hukum koperasi",
+      "Penyusunan & reviu dokumen kelembagaan",
+      "Konsultasi kekayaan intelektual",
+    ],
   },
   {
     num: "02",
-    icon: "⚖️",
-    title: "Akta + NIB",
-    desc: "Pengurusan akta pendirian beserta NIB. Koperasi, CV, dan Yayasan; serta Perseroan Terbatas (PT).",
-    tag: "Kop · CV · Yayasan · PT",
-    duration: "14–30 hari",
-    price: "Rp 3.000.000 (Kop/CV/Yayasan) · Rp 4.000.000 (PT)",
+    icon: "📊",
+    title: "Akuntansi, Pembukuan & Perpajakan",
+    desc: "Jasa akuntansi dan pembukuan, pemeriksaan laporan keuangan, serta konsultasi perpajakan bagi koperasi dan anggotanya.",
+    tag: "Keuangan & Pajak",
+    includes: [
+      "Jasa akuntansi & pembukuan",
+      "Pemeriksaan laporan keuangan",
+      "Konsultasi perpajakan",
+    ],
   },
   {
     num: "03",
-    icon: "📄",
-    title: "Anggaran Rumah Tangga (ART)",
-    desc: "Penyusunan Anggaran Rumah Tangga sesuai regulasi terkini.",
-    tag: "Semua Jenis Koperasi",
-    duration: "7–14 hari",
-    price: "Rp 1.000.000",
+    icon: "💻",
+    title: "Teknologi Informasi & Sistem Digital",
+    desc: "Pengembangan aplikasi dan sistem komputer, pengolahan data dan hosting, identitas digital, serta sertifikat elektronik.",
+    tag: "Digital & TI",
+    includes: [
+      "Pengembangan aplikasi & sistem",
+      "Pengolahan data & hosting",
+      "Identitas digital & sertifikat elektronik",
+    ],
   },
   {
     num: "04",
-    icon: "📑",
-    title: "SOP, SOM & Peraturan Khusus (Persus)",
-    desc: "Penyusunan Standar Operasional dan Peraturan Khusus. Paket Premium (2,5 jt) mencakup 3–5 kali pendampingan; Paket Lite (1 jt) mencakup 1 kali pendampingan.",
-    tag: "Semua Jenis Koperasi",
-    duration: "7–21 hari",
-    price: "Premium Rp 2.500.000 · Lite Rp 1.000.000",
+    icon: "🎯",
+    title: "Konsultasi Manajemen & Bisnis",
+    desc: "Perencanaan strategi usaha, pengembangan organisasi, serta pendampingan tata kelola manajemen koperasi.",
+    tag: "Manajemen & Bisnis",
+    includes: [
+      "Perencanaan strategi usaha",
+      "Pengembangan organisasi",
+      "Pendampingan tata kelola manajemen",
+    ],
   },
   {
     num: "05",
-    icon: "🗺️",
-    title: "Renstra & RAPBK",
-    desc: "Penyusunan Rencana Strategis dan Rencana Anggaran Pendapatan & Belanja Koperasi. Paket Premium (1 jt) dan Paket Lite (500 rb).",
-    tag: "Pengurus & Manajemen",
-    duration: "14–21 hari",
-    price: "Premium Rp 1.000.000 · Lite Rp 500.000",
+    icon: "📚",
+    title: "Pelatihan & Pengembangan SDM",
+    desc: "Pelatihan kerja, kursus, dan program pendidikan bagi pengurus, pengawas, dan anggota koperasi.",
+    tag: "SDM & Edukasi",
+    includes: [
+      "Pelatihan kerja & kursus",
+      "Program pendidikan",
+      "Untuk pengurus, pengawas & anggota",
+    ],
   },
   {
     num: "06",
-    icon: "🏛️",
-    title: "Pendampingan Hukum",
-    desc: "Layanan pendampingan hukum meliputi konsultasi regulasi, kepatuhan, dan penyelesaian permasalahan hukum organisasi.",
-    tag: "Semua Jenis Usaha",
-    duration: "Kondisional",
-    price: "Negotiable",
-  },
-  {
-    num: "07",
-    icon: "📊",
-    title: "Jasa Laporan Keuangan",
-    desc: "Penyusunan laporan keuangan sesuai standar akuntansi. Tarif menyesuaikan omset dan volume transaksi. Premium (2–3 jt) · Lite (s.d. 500 rb).",
-    tag: "KSP · KSPPS · Umum",
-    duration: "Per periode",
-    price: "Premium Rp 2.000.000 – 3.000.000 · Lite s.d. Rp 500.000",
-  },
-  {
-    num: "08",
-    icon: "🧾",
-    title: "Tax Planning",
-    desc: "Perencanaan pajak strategis untuk efisiensi kewajiban perpajakan usaha.",
-    tag: "Semua Jenis Usaha",
-    duration: "Kondisional",
-    price: "Rp 2.000.000 – 10.000.000",
-  },
-  {
-    num: "09",
-    icon: "🗂️",
-    title: "SPT Tahunan",
-    desc: "Penyusunan dan pelaporan SPT Tahunan. Tarif berdasarkan omset: 0–1 M (800 rb – 1,5 jt) · 1–4,8 M (1,5 – 3,5 jt) · 4,8–6 M (3,5 – 5 jt) · 6–12 M (5,5 – 7,5 jt) · >12 M (>10 jt).",
-    tag: "Semua Jenis Usaha",
-    duration: "Per tahun",
-    price: "Rp 800.000 – >10.000.000 (sesuai omset)",
-  },
-  {
-    num: "10",
-    icon: "📝",
-    title: "Laporan RAT",
-    desc: "Penyusunan laporan Rapat Anggota Tahunan secara lengkap dan terstruktur.",
-    tag: "Semua Jenis Koperasi",
-    duration: "7–14 hari",
-    price: "Rp 500.000 – 2.000.000",
-  },
-  {
-    num: "11",
-    icon: "📱",
-    title: "Aplikasi Operasional",
-    desc: "Implementasi dan pendampingan adopsi aplikasi manajemen berbasis digital, disesuaikan kebutuhan organisasi.",
-    tag: "Semua Jenis Usaha",
-    duration: "Custom",
-    price: "Negotiable",
+    icon: "🔍",
+    title: "Pengujian, Sertifikasi & Penelitian",
+    desc: "Jasa sertifikasi dan verifikasi teknis, serta penelitian dan pengembangan ilmu sosial terkait tata kelola koperasi.",
+    tag: "Sertifikasi & Riset",
+    includes: [
+      "Jasa sertifikasi & verifikasi teknis",
+      "Penelitian & pengembangan",
+      "Ilmu sosial tata kelola koperasi",
+    ],
   },
 ];
 
@@ -136,6 +109,15 @@ export default function ServicesPage() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500&display=swap');
 
+        :root {
+          --navy-deep: #0a1e30;
+          --navy: #254a76;
+          --teal: #2f8f8a;
+          --teal-light: #5fc9c2;
+          --teal-dark: #1d6b6f;
+          --cream: #f4f7f7;
+        }
+
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(24px); }
           to   { opacity: 1; transform: translateY(0); }
@@ -153,87 +135,95 @@ export default function ServicesPage() {
         }
         .reveal-left.visible { opacity: 1; transform: translateX(0); }
 
+        /* Header — biru navy (teks terang OK) */
         .services-header {
-          background: #0f1623;
-          border-bottom: 1px solid rgba(212,176,106,0.15);
+          background: var(--navy);
+          border-bottom: 1px solid rgba(47,143,138,0.15);
           padding: 52px 0 44px;
         }
 
-        .eyebrow {
-          display: flex; align-items: center; gap: 12px;
-          margin-bottom: 10px;
-        }
+        .eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
         .eyebrow-line { width: 28px; height: 1px; }
-        .eyebrow-text {
-          font-size: 11px; letter-spacing: 0.22em;
-          text-transform: uppercase; font-weight: 500;
-        }
+        .eyebrow-text { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; }
 
-        /* Service row cards */
-        .service-row {
-          display: grid;
-          grid-template-columns: 64px 1fr auto;
-          gap: 0;
-          align-items: stretch;
-          background: #fff;
-          border: 1px solid rgba(139,111,46,0.1);
-          margin-bottom: 10px;
-          transition: border-color 0.25s, transform 0.2s, box-shadow 0.25s;
+        /* ── Service card (grid 3×2) — teks gelap di atas cream ── */
+        .service-card {
+          background: var(--cream);
+          border: 1px solid rgba(47,143,138,0.25);
+          padding: 28px 24px;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
           overflow: hidden;
         }
-        .service-row:hover {
-          border-color: rgba(212,176,106,0.5);
-          transform: translateY(-2px);
-          box-shadow: 0 6px 24px rgba(212,176,106,0.1);
+        .service-card:hover {
+          border-color: rgba(47,143,138,0.6);
+          transform: translateY(-3px);
+          box-shadow: 0 12px 40px rgba(10,30,48,0.15);
         }
-        .service-row-num {
-          background: rgba(212,176,106,0.05);
-          border-right: 1px solid rgba(212,176,106,0.12);
-          display: flex; align-items: center; justify-content: center;
+        .service-card-num {
+          position: absolute; top: 20px; right: 20px;
           font-family: 'Playfair Display', serif;
-          font-weight: 700; font-size: 18px;
-          color: rgba(212,176,106,0.5);
-          transition: color 0.25s, background 0.25s;
-          flex-shrink: 0;
+          font-weight: 700; font-size: 26px;
+          color: rgba(37,74,118,0.25);
+          line-height: 1;
+          transition: color 0.25s;
         }
-        .service-row:hover .service-row-num {
-          color: #d4b06a;
-          background: rgba(212,176,106,0.08);
+        .service-card:hover .service-card-num { color: rgba(37,74,118,0.5); }
+
+        .service-icon {
+          width: 40px; height: 40px;
+          border: 1px solid rgba(47,143,138,0.4);
+          background: rgba(47,143,138,0.08);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 17px; margin-bottom: 16px;
+          transition: border-color 0.25s, background 0.25s;
         }
-        .service-row-body {
-          padding: 20px 24px;
-          display: flex; flex-direction: column; gap: 6px;
+        .service-card:hover .service-icon {
+          border-color: rgba(47,143,138,0.7);
+          background: rgba(47,143,138,0.14);
         }
-        .service-row-meta {
-          padding: 20px 24px;
-          display: flex; flex-direction: column;
-          align-items: flex-end; justify-content: center;
-          gap: 6px; border-left: 1px solid rgba(212,176,106,0.1);
-          min-width: 200px;
-        }
+
         .service-tag {
           display: inline-block;
           padding: 3px 9px; font-size: 10px;
           letter-spacing: 0.1em; text-transform: uppercase;
-          background: rgba(212,176,106,0.08); color: #8b6f2e;
-          border: 1px solid rgba(212,176,106,0.2);
-        }
-        .service-icon {
-          width: 28px; height: 28px;
-          border: 1px solid rgba(212,176,106,0.3);
-          display: inline-flex; align-items: center; justify-content: center;
-          font-size: 13px; margin-right: 10px;
-          vertical-align: middle;
+          background: rgba(47,143,138,0.12);
+          color: var(--teal-dark);
+          border: 1px solid rgba(47,143,138,0.35);
+          align-self: flex-start;
+          margin-top: 14px;
+          font-weight: 500;
         }
 
-        /* Free services */
+        .service-includes {
+          list-style: none;
+          padding: 0; margin: 14px 0 0;
+          border-top: 1px solid rgba(47,143,138,0.2);
+          padding-top: 14px;
+        }
+        .service-includes li {
+          display: flex; align-items: flex-start; gap: 8px;
+          font-size: 12px;
+          color: #4b5563;
+          font-weight: 400;
+          line-height: 1.5; margin-bottom: 6px;
+        }
+        .service-includes li::before {
+          content: '–';
+          color: var(--teal-dark);
+          flex-shrink: 0;
+        }
+
+        /* ── Free services ── */
         .free-section {
-          background: #f5f0e8;
+          background: var(--cream);
           padding: 64px 0;
         }
         .free-card {
-          background: #0f1623;
-          border: 1px solid rgba(212,176,106,0.15);
+          background: var(--cream);
+          border: 1px solid rgba(47,143,138,0.3);
           padding: 36px 40px;
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -241,45 +231,48 @@ export default function ServicesPage() {
           align-items: start;
           transition: border-color 0.3s;
         }
-        .free-card:hover { border-color: rgba(212,176,106,0.3); }
+        .free-card:hover { border-color: rgba(47,143,138,0.55); }
+
         .free-item {
           display: flex; align-items: flex-start; gap: 12px;
           padding: 12px 0;
-          border-bottom: 1px solid rgba(212,176,106,0.08);
+          border-bottom: 1px solid rgba(47,143,138,0.15);
         }
         .free-item:last-child { border-bottom: none; padding-bottom: 0; }
+
         .free-check {
           width: 20px; height: 20px; flex-shrink: 0;
-          border: 1px solid rgba(212,176,106,0.4);
+          border: 1px solid rgba(47,143,138,0.5);
           display: flex; align-items: center; justify-content: center;
-          font-size: 10px; color: #d4b06a; margin-top: 1px;
+          font-size: 10px;
+          color: var(--teal-dark);
+          margin-top: 1px;
+          font-weight: 700;
         }
 
         .btn-primary {
-          background: #d4b06a; color: #0f1623;
-          padding: 12px 28px; font-size: 13px; font-weight: 500;
+          background: linear-gradient(135deg, var(--teal-light), var(--teal));
+          color: #082022;
+          padding: 12px 28px; font-size: 13px; font-weight: 600;
           letter-spacing: 0.08em; text-transform: uppercase;
           border: none; cursor: pointer;
-          transition: background 0.2s, transform 0.15s;
+          transition: filter 0.2s, transform 0.15s;
           display: inline-block;
         }
-        .btn-primary:hover { background: #e2c47f; transform: translateY(-2px); }
+        .btn-primary:hover { filter: brightness(1.08); transform: translateY(-2px); }
 
-        /* CTA strip */
+        /* CTA strip — bg navy, teks terang OK */
         .cta-strip {
-          background: #0f1623;
+          background: var(--navy);
           padding: 52px 0;
-          border-top: 1px solid rgba(212,176,106,0.1);
+          border-top: 1px solid rgba(47,143,138,0.15);
         }
 
         @media (max-width: 768px) {
           .services-header { padding: 40px 0 32px; }
           .services-header h1 { font-size: 28px !important; }
-          .service-row {
-            grid-template-columns: 48px 1fr;
-          }
-          .service-row-meta {
-            display: none;
+          .services-grid {
+            grid-template-columns: 1fr !important;
           }
           .free-card {
             grid-template-columns: 1fr;
@@ -290,12 +283,12 @@ export default function ServicesPage() {
         }
       `}</style>
 
-      {/* ── Header ── */}
+      {/* ── Header (bg navy) ── */}
       <section className="services-header">
         <div className="max-w-7xl mx-auto px-10">
           <div className="eyebrow" style={{ animation: "fadeUp 0.7s ease both" }}>
-            <div className="eyebrow-line" style={{ background: "#d4b06a" }} />
-            <span className="eyebrow-text" style={{ color: "#d4b06a" }}>
+            <div className="eyebrow-line" style={{ background: "#5fc9c2" }} />
+            <span className="eyebrow-text" style={{ color: "#5fc9c2" }}>
               Portofolio Layanan
             </span>
           </div>
@@ -311,99 +304,99 @@ export default function ServicesPage() {
           </h1>
           <p
             style={{
-              color: "#9ca3af", fontSize: 15, fontWeight: 300,
+              color: "#cbd5e1", fontSize: 15, fontWeight: 300,
               lineHeight: 1.75, maxWidth: 520,
               animation: "fadeUp 0.7s 0.2s ease both",
             }}
           >
-            8 paket layanan komprehensif yang dirancang untuk memenuhi seluruh
-            kebutuhan operasional, legalitas, dan pengembangan koperasi di Indonesia.
+            Enam bidang layanan resmi sesuai Akta Pendirian CV Fona Mitra Konsultan —
+            mencakup hukum, keuangan, teknologi, manajemen, SDM, dan sertifikasi.
           </p>
         </div>
       </section>
 
-      {/* ── Service List ── */}
-      <section style={{ background: "#f5f0e8", padding: "64px 0" }}>
+      {/* ── Service Grid (6 kategori resmi) — bg cream, teks gelap ── */}
+      <section style={{ background: "#f4f7f7", padding: "64px 0" }}>
         <div className="max-w-7xl mx-auto px-10">
           <div className="eyebrow reveal-left">
-            <div className="eyebrow-line" style={{ background: "#8b6f2e" }} />
-            <span className="eyebrow-text" style={{ color: "#8b6f2e" }}>8 Layanan Utama</span>
+            <div className="eyebrow-line" style={{ background: "#1d6b6f" }} />
+            <span className="eyebrow-text" style={{ color: "#1d6b6f" }}>6 Layanan Resmi</span>
           </div>
           <h2
             className="reveal"
             style={{
               fontFamily: "'Playfair Display', serif",
               fontWeight: 600, fontSize: 26,
-              color: "#0f1623", marginBottom: 32, lineHeight: 1.3,
+              color: "#254a76", marginBottom: 8, lineHeight: 1.3,
             }}
           >
             Solusi Lengkap untuk Koperasi Anda
           </h2>
+          <p
+            className="reveal"
+            style={{
+              color: "#4b5563", fontSize: 14, fontWeight: 400,
+              lineHeight: 1.7, maxWidth: 520, marginBottom: 36,
+            }}
+          >
+            Sesuai ruang lingkup usaha resmi dalam Akta Pendirian CV Fona Mitra Konsultan.
+          </p>
 
-          <div>
+          <div
+            className="services-grid"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: 14,
+            }}
+          >
             {services.map((s, i) => (
               <div
                 key={s.num}
-                className="service-row reveal"
-                style={{ transitionDelay: `${i * 0.06}s` }}
+                className="service-card reveal"
+                style={{ transitionDelay: `${i * 0.08}s` }}
               >
-                <div className="service-row-num">{s.num}</div>
-
-                <div className="service-row-body">
-                  <div style={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
-                    <span className="service-icon">{s.icon}</span>
-                    <span
-                      style={{
-                        fontFamily: "'Playfair Display', serif",
-                        fontSize: 16, fontWeight: 600, color: "#0f1623",
-                      }}
-                    >
-                      {s.title}
-                    </span>
-                  </div>
-                  <p style={{ fontSize: 13, color: "#6b7280", fontWeight: 300, lineHeight: 1.65 }}>
-                    {s.desc}
-                  </p>
-                  <span className="service-tag">{s.tag}</span>
-                </div>
-
-                <div className="service-row-meta">
-                  <div style={{ textAlign: "right" }}>
-                    <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "#9ca3af", marginBottom: 3 }}>
-                      Estimasi Tarif
-                    </div>
-                    <div style={{ fontSize: 13, fontWeight: 500, color: "#0f1623" }}>
-                      {s.price}
-                    </div>
-                  </div>
-                  <div style={{ textAlign: "right" }}>
-                    <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "#9ca3af", marginBottom: 3 }}>
-                      Durasi
-                    </div>
-                    <div style={{ fontSize: 13, fontWeight: 500, color: "#0f1623" }}>
-                      {s.duration}
-                    </div>
-                  </div>
-                </div>
+                <span className="service-card-num">{s.num}</span>
+                <div className="service-icon">{s.icon}</div>
+                <h3
+                  style={{
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: 16, fontWeight: 600,
+                    color: "#0a1e30",
+                    lineHeight: 1.35,
+                    marginBottom: 8, paddingRight: 30,
+                  }}
+                >
+                  {s.title}
+                </h3>
+                <p style={{ fontSize: 12.5, color: "#4b5563", fontWeight: 400, lineHeight: 1.65 }}>
+                  {s.desc}
+                </p>
+                <ul className="service-includes">
+                  {s.includes.map((item, j) => (
+                    <li key={j}>{item}</li>
+                  ))}
+                </ul>
+                <span className="service-tag">{s.tag}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Free Services ── */}
+      {/* ── Free Services — bg cream, teks gelap ── */}
       <section className="free-section">
         <div className="max-w-7xl mx-auto px-10">
           <div className="eyebrow reveal-left">
-            <div className="eyebrow-line" style={{ background: "#8b6f2e" }} />
-            <span className="eyebrow-text" style={{ color: "#8b6f2e" }}>Tanpa Biaya</span>
+            <div className="eyebrow-line" style={{ background: "#1d6b6f" }} />
+            <span className="eyebrow-text" style={{ color: "#1d6b6f" }}>Tanpa Biaya</span>
           </div>
           <h2
             className="reveal"
             style={{
               fontFamily: "'Playfair Display', serif",
               fontWeight: 600, fontSize: 26,
-              color: "#0f1623", marginBottom: 24, lineHeight: 1.3,
+              color: "#254a76", marginBottom: 24, lineHeight: 1.3,
             }}
           >
             Layanan Gratis untuk Koperasi
@@ -411,7 +404,7 @@ export default function ServicesPage() {
           <p
             className="reveal"
             style={{
-              color: "#6b7280", fontSize: 14, fontWeight: 300,
+              color: "#4b5563", fontSize: 14, fontWeight: 400,
               lineHeight: 1.7, maxWidth: 480, marginBottom: 28,
             }}
           >
@@ -425,7 +418,7 @@ export default function ServicesPage() {
               {freeServices.map((item, i) => (
                 <div key={i} className="free-item">
                   <div className="free-check">✓</div>
-                  <p style={{ fontSize: 13.5, color: "#9ca3af", fontWeight: 300, lineHeight: 1.65 }}>
+                  <p style={{ fontSize: 13.5, color: "#374151", fontWeight: 400, lineHeight: 1.65 }}>
                     {item}
                   </p>
                 </div>
@@ -436,8 +429,8 @@ export default function ServicesPage() {
             <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 16 }}>
               <div
                 style={{
-                  color: "#d4b06a", fontSize: 10, letterSpacing: "0.22em",
-                  textTransform: "uppercase", fontWeight: 500,
+                  color: "#1d6b6f", fontSize: 10, letterSpacing: "0.22em",
+                  textTransform: "uppercase", fontWeight: 600,
                 }}
               >
                 Mulai Sekarang
@@ -446,29 +439,36 @@ export default function ServicesPage() {
                 style={{
                   fontFamily: "'Playfair Display', serif",
                   fontSize: 20, fontWeight: 600, fontStyle: "italic",
-                  color: "#f5f0e8", lineHeight: 1.5,
+                  color: "#0a1e30", lineHeight: 1.5,
                 }}
               >
                 Konsultasi awal gratis hingga 2 jam — online maupun tatap muka.
               </p>
-              <p style={{ fontSize: 13, color: "#6b7280", fontWeight: 300, lineHeight: 1.65 }}>
+              <p style={{ fontSize: 13, color: "#4b5563", fontWeight: 400, lineHeight: 1.65 }}>
                 Tidak ada kewajiban setelah konsultasi gratis. Kami bantu Anda memahami
                 kebutuhan koperasi terlebih dahulu sebelum memutuskan layanan yang tepat.
               </p>
               <div>
-                <button className="btn-primary">Hubungi Kami Sekarang</button>
+                <a
+                  href="https://wa.me/6281807405852?text=Halo%20Fona%20Mitra%20Konsultan%2C%20saya%20ingin%20berkonsultasi."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary"
+                >
+                  Hubungi Kami Sekarang
+                </a>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── CTA Strip ── */}
+      {/* ── CTA Strip (bg navy, teks terang OK) ── */}
       <section className="cta-strip">
         <div className="max-w-7xl mx-auto px-10" style={{ textAlign: "center" }}>
           <div
             style={{
-              color: "#d4b06a", fontSize: 10, letterSpacing: "0.22em",
+              color: "#5fc9c2", fontSize: 10, letterSpacing: "0.22em",
               textTransform: "uppercase", fontWeight: 500, marginBottom: 12,
             }}
           >
@@ -483,11 +483,18 @@ export default function ServicesPage() {
           >
             Diskusikan Kebutuhan Koperasi Anda
           </h2>
-          <p style={{ color: "#6b7280", fontSize: 14, fontWeight: 300, lineHeight: 1.7, maxWidth: 440, margin: "0 auto 28px" }}>
+          <p style={{ color: "#cbd5e1", fontSize: 14, fontWeight: 300, lineHeight: 1.7, maxWidth: 440, margin: "0 auto 28px" }}>
             Tim kami siap membantu menemukan layanan yang paling sesuai dengan kondisi
             dan kebutuhan koperasi Anda.
           </p>
-          <button className="btn-primary">Konsultasi Gratis</button>
+          <a
+            href="https://wa.me/6281807405852?text=Halo%20Fona%20Mitra%20Konsultan%2C%20saya%20ingin%20berkonsultasi."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary"
+          >
+            Konsultasi Gratis
+          </a>
         </div>
       </section>
     </>

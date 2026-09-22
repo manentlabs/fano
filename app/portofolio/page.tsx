@@ -79,29 +79,29 @@ const portfolioItems = [
 
 const categories = ["Semua", "Kelembagaan", "Keuangan", "Legalitas", "Pelatihan", "Perencanaan", "Pembiayaan", "Digital", "Konsultasi"];
 
+// Warna kategori disesuaikan dengan nuansa navy–teal–cream
 const categoryColors: Record<string, string> = {
-  Kelembagaan: "#4a7c59",
-  Keuangan:    "#2563a8",
-  Legalitas:   "#7c4a1e",
-  Pelatihan:   "#6b4fa0",
-  Perencanaan: "#1e6b6b",
-  Pembiayaan:  "#8b3a3a",
-  Digital:     "#1e5c8b",
-  Konsultasi:  "#6b6b1e",
+  Kelembagaan: "#1d6b6f", // teal gelap
+  Keuangan:    "#254a76", // navy
+  Legalitas:   "#5a3e1e", // cokelat tua
+  Pelatihan:   "#5b3f8a", // ungu tua
+  Perencanaan: "#2f8f8a", // teal
+  Pembiayaan:  "#7a2e2e", // maroon
+  Digital:     "#1e4b7a", // navy muda
+  Konsultasi:  "#6b6b1e", // olive tua
 };
 
 // Fungsi untuk mendapatkan gambar unik per item (placeholder)
 const getImageForItem = (item: typeof portfolioItems[0]) => {
-  // Menggunakan picsum dengan ID yang konsisten berdasarkan nomor item
   const idMap: Record<string, number> = {
-    "01": 25,  // perkantoran
-    "02": 26,  // laporan
-    "03": 28,  // legal
-    "04": 30,  // pelatihan
-    "05": 32,  // perencanaan
-    "06": 34,  // pembiayaan
-    "07": 36,  // digital
-    "08": 38,  // konsultasi
+    "01": 25,
+    "02": 26,
+    "03": 28,
+    "04": 30,
+    "05": 32,
+    "06": 34,
+    "07": 36,
+    "08": 38,
   };
   const picId = idMap[item.num] || 42;
   return `https://picsum.photos/id/${picId}/600/500`;
@@ -112,19 +112,17 @@ export default function PortfolioPage() {
   const filtered = active === "Semua"
     ? portfolioItems
     : portfolioItems.filter((p) => p.category === active);
-  
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState<"right" | "left" | null>(null);
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
 
-  // Reset index ketika filter berubah
   useEffect(() => {
     setCurrentIndex(0);
   }, [active]);
 
-  // Fungsi next dan prev dengan animasi
   const nextSlide = useCallback(() => {
     if (filtered.length === 0) return;
     setDirection("right");
@@ -137,7 +135,6 @@ export default function PortfolioPage() {
     setCurrentIndex((prev) => (prev - 1 + filtered.length) % filtered.length);
   }, [filtered.length]);
 
-  // Auto slide ke kanan
   useEffect(() => {
     if (isPaused || filtered.length <= 1) return;
     if (intervalRef.current) clearInterval(intervalRef.current);
@@ -149,7 +146,6 @@ export default function PortfolioPage() {
     };
   }, [nextSlide, isPaused, filtered.length]);
 
-  // Hapus class animasi setelah selesai
   useEffect(() => {
     if (!direction) return;
     const timer = setTimeout(() => {
@@ -158,11 +154,9 @@ export default function PortfolioPage() {
     return () => clearTimeout(timer);
   }, [direction]);
 
-  // Hover pause
   const handleMouseEnter = () => setIsPaused(true);
   const handleMouseLeave = () => setIsPaused(false);
 
-  // Observer untuk animasi scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -186,6 +180,15 @@ export default function PortfolioPage() {
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500&display=swap');
+
+        :root {
+          --navy-deep: #0a1e30;
+          --navy: #254a76;
+          --teal: #2f8f8a;
+          --teal-light: #5fc9c2;
+          --teal-dark: #1d6b6f;
+          --cream: #f4f7f7;
+        }
 
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(24px); }
@@ -221,9 +224,10 @@ export default function PortfolioPage() {
           animation: slideInLeft 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
         }
 
+        /* Header — navy (teks terang OK) */
         .portfolio-header {
-          background: #0f1623;
-          border-bottom: 1px solid rgba(212,176,106,0.15);
+          background: var(--navy);
+          border-bottom: 1px solid rgba(47,143,138,0.15);
           padding: 52px 0 44px;
         }
 
@@ -237,7 +241,7 @@ export default function PortfolioPage() {
           text-transform: uppercase; font-weight: 500;
         }
 
-        /* Filter tabs */
+        /* Filter tabs — bg cream, teks gelap */
         .filter-bar {
           display: flex; flex-wrap: wrap; gap: 6px;
           margin-bottom: 36px;
@@ -245,34 +249,34 @@ export default function PortfolioPage() {
         .filter-btn {
           padding: 7px 16px;
           font-size: 11px; letter-spacing: 0.1em;
-          text-transform: uppercase; font-weight: 400;
-          border: 1px solid rgba(139,111,46,0.2);
+          text-transform: uppercase; font-weight: 500;
+          border: 1px solid rgba(47,143,138,0.3);
           background: transparent; cursor: pointer;
-          color: #6b7280;
+          color: #4b5563;
           transition: all 0.2s;
         }
         .filter-btn:hover {
-          border-color: rgba(212,176,106,0.5);
-          color: #0f1623;
+          border-color: rgba(47,143,138,0.7);
+          color: var(--navy);
         }
         .filter-btn.active {
-          background: #0f1623;
-          border-color: #0f1623;
-          color: #d4b06a;
+          background: var(--navy);
+          border-color: var(--navy);
+          color: var(--teal-light);
         }
 
-        /* Carousel card */
+        /* Carousel card — bg putih, teks gelap */
         .carousel-card {
           background: #fff;
-          border: 1px solid rgba(139,111,46,0.1);
+          border: 1px solid rgba(47,143,138,0.2);
           overflow: hidden;
           transition: border-color 0.25s, box-shadow 0.25s;
           display: flex;
           flex-direction: row;
         }
         .carousel-card:hover {
-          border-color: rgba(212,176,106,0.5);
-          box-shadow: 0 12px 32px rgba(212,176,106,0.12);
+          border-color: rgba(47,143,138,0.55);
+          box-shadow: 0 12px 32px rgba(10,30,48,0.12);
         }
         .card-image {
           flex: 0 0 40%;
@@ -298,7 +302,7 @@ export default function PortfolioPage() {
         .card-category-badge {
           display: inline-block;
           font-size: 10px; letter-spacing: 0.15em;
-          text-transform: uppercase; font-weight: 500;
+          text-transform: uppercase; font-weight: 600;
           padding: 4px 12px;
           border: 1px solid;
           margin-bottom: 14px;
@@ -308,14 +312,14 @@ export default function PortfolioPage() {
           font-family: 'Playfair Display', serif;
           font-size: 22px;
           font-weight: 700;
-          color: #0f1623;
+          color: var(--navy-deep);
           margin-bottom: 12px;
           line-height: 1.3;
         }
         .card-description {
           font-size: 14px;
-          color: #6b7280;
-          font-weight: 300;
+          color: #4b5563;
+          font-weight: 400;
           line-height: 1.65;
           margin-bottom: 16px;
         }
@@ -327,29 +331,32 @@ export default function PortfolioPage() {
           font-size: 10px; letter-spacing: 0.08em;
           text-transform: uppercase;
           padding: 4px 10px;
-          background: rgba(212,176,106,0.08);
-          color: #8b6f2e;
-          border: 1px solid rgba(212,176,106,0.2);
+          background: rgba(47,143,138,0.1);
+          color: var(--teal-dark);
+          border: 1px solid rgba(47,143,138,0.3);
+          font-weight: 500;
         }
         .card-meta {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          border-top: 1px solid rgba(212,176,106,0.1);
+          border-top: 1px solid rgba(47,143,138,0.2);
           margin-top: auto;
           padding-top: 18px;
         }
         .card-result {
           display: flex; align-items: center; gap: 8px;
           font-size: 12px; color: #374151;
+          font-weight: 500;
         }
         .card-result::before {
           content: '✓';
-          color: #d4b06a; font-size: 13px; font-weight: bold;
+          color: var(--teal-dark); font-size: 13px; font-weight: bold;
         }
         .card-duration {
-          font-size: 11px; color: #9ca3af;
+          font-size: 11px; color: #6b7280;
           letter-spacing: 0.08em;
+          font-weight: 500;
         }
 
         /* Navigasi */
@@ -361,8 +368,8 @@ export default function PortfolioPage() {
           margin-top: 32px;
         }
         .nav-btn {
-          background: #0f1623;
-          border: 1px solid rgba(212,176,106,0.3);
+          background: var(--navy);
+          border: 1px solid rgba(47,143,138,0.4);
           width: 44px;
           height: 44px;
           border-radius: 50%;
@@ -371,13 +378,13 @@ export default function PortfolioPage() {
           justify-content: center;
           cursor: pointer;
           transition: all 0.2s;
-          color: #d4b06a;
+          color: var(--teal-light);
           font-size: 20px;
         }
         .nav-btn:hover {
-          background: #d4b06a;
-          color: #0f1623;
-          border-color: #d4b06a;
+          background: var(--teal-light);
+          color: var(--navy-deep);
+          border-color: var(--teal-light);
         }
         .dot-container {
           display: flex;
@@ -390,19 +397,21 @@ export default function PortfolioPage() {
           background: #cbd5e1;
           cursor: pointer;
           transition: all 0.2s;
+          border: none;
+          padding: 0;
         }
         .dot.active {
-          background: #d4b06a;
+          background: var(--teal-dark);
           width: 24px;
           border-radius: 12px;
         }
 
-        /* Stats strip */
+        /* Stats strip — navy */
         .stats-strip {
-          background: #0f1623;
+          background: var(--navy);
           padding: 40px 0;
-          border-top: 1px solid rgba(212,176,106,0.1);
-          border-bottom: 1px solid rgba(212,176,106,0.1);
+          border-top: 1px solid rgba(47,143,138,0.15);
+          border-bottom: 1px solid rgba(47,143,138,0.15);
         }
         .stats-grid {
           display: grid;
@@ -411,30 +420,31 @@ export default function PortfolioPage() {
         }
         .stat-cell {
           padding: 0 28px; text-align: center;
-          border-right: 1px solid rgba(212,176,106,0.12);
+          border-right: 1px solid rgba(95,201,194,0.2);
         }
         .stat-cell:last-child { border-right: none; }
 
-        /* CTA */
+        /* CTA — navy */
         .cta-strip {
-          background: #0f1623; padding: 52px 0;
+          background: var(--navy); padding: 52px 0;
         }
         .btn-primary {
-          background: #d4b06a; color: #0f1623;
-          padding: 12px 28px; font-size: 13px; font-weight: 500;
+          background: linear-gradient(135deg, var(--teal-light), var(--teal));
+          color: #082022;
+          padding: 12px 28px; font-size: 13px; font-weight: 600;
           letter-spacing: 0.08em; text-transform: uppercase;
           border: none; cursor: pointer;
-          transition: background 0.2s, transform 0.15s;
+          transition: filter 0.2s, transform 0.15s;
           display: inline-block;
         }
-        .btn-primary:hover { background: #e2c47f; transform: translateY(-2px); }
+        .btn-primary:hover { filter: brightness(1.08); transform: translateY(-2px); }
 
         @media (max-width: 768px) {
           .portfolio-header { padding: 40px 0 32px; }
           .portfolio-header h1 { font-size: 28px !important; }
           .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 20px 0; }
           .stat-cell:nth-child(2) { border-right: none; }
-          .stat-cell:nth-child(3) { border-right: 1px solid rgba(212,176,106,0.12); }
+          .stat-cell:nth-child(3) { border-right: 1px solid rgba(95,201,194,0.2); }
           .stat-cell { padding: 0 16px; }
           .cta-strip { padding: 40px 0; }
           .carousel-card {
@@ -452,12 +462,12 @@ export default function PortfolioPage() {
         }
       `}</style>
 
-      {/* Header */}
+      {/* Header — navy */}
       <section className="portfolio-header">
         <div className="max-w-7xl mx-auto px-10">
           <div className="eyebrow" style={{ animation: "fadeUp 0.7s ease both" }}>
-            <div className="eyebrow-line" style={{ background: "#d4b06a" }} />
-            <span className="eyebrow-text" style={{ color: "#d4b06a" }}>Rekam Jejak</span>
+            <div className="eyebrow-line" style={{ background: "#5fc9c2" }} />
+            <span className="eyebrow-text" style={{ color: "#5fc9c2" }}>Rekam Jejak</span>
           </div>
           <h1
             style={{
@@ -471,7 +481,7 @@ export default function PortfolioPage() {
           </h1>
           <p
             style={{
-              color: "#9ca3af", fontSize: 15, fontWeight: 300,
+              color: "#cbd5e1", fontSize: 15, fontWeight: 300,
               lineHeight: 1.75, maxWidth: 520,
               animation: "fadeUp 0.7s 0.2s ease both",
             }}
@@ -483,7 +493,7 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* Stats Strip */}
+      {/* Stats Strip — navy */}
       <div className="stats-strip">
         <div className="max-w-7xl mx-auto px-10">
           <div className="stats-grid">
@@ -491,7 +501,7 @@ export default function PortfolioPage() {
               { value: "8+", label: "Proyek Selesai" },
               { value: "6", label: "Kategori Layanan" },
               { value: "100%", label: "Klien Puas" },
-              { value: "2025", label: "Mulai Beroperasi" },
+              { value: "2026", label: "Mulai Beroperasi" },
             ].map((s, i) => (
               <div key={i} className="stat-cell">
                 <div
@@ -503,7 +513,7 @@ export default function PortfolioPage() {
                 >
                   {s.value}
                 </div>
-                <div style={{ fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "#6b7280" }}>
+                <div style={{ fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "#5fc9c2", fontWeight: 500 }}>
                   {s.label}
                 </div>
               </div>
@@ -512,19 +522,19 @@ export default function PortfolioPage() {
         </div>
       </div>
 
-      {/* Carousel Section */}
-      <section style={{ background: "#f5f0e8", padding: "64px 0" }}>
+      {/* Carousel Section — bg cream, teks gelap */}
+      <section style={{ background: "#f4f7f7", padding: "64px 0" }}>
         <div className="max-w-7xl mx-auto px-10">
           <div className="eyebrow reveal-left">
-            <div className="eyebrow-line" style={{ background: "#8b6f2e" }} />
-            <span className="eyebrow-text" style={{ color: "#8b6f2e" }}>Sorotan Proyek</span>
+            <div className="eyebrow-line" style={{ background: "#1d6b6f" }} />
+            <span className="eyebrow-text" style={{ color: "#1d6b6f" }}>Sorotan Proyek</span>
           </div>
           <h2
             className="reveal"
             style={{
               fontFamily: "'Playfair Display', serif",
               fontWeight: 600, fontSize: 26,
-              color: "#0f1623", marginBottom: 28, lineHeight: 1.3,
+              color: "#254a76", marginBottom: 28, lineHeight: 1.3,
             }}
           >
             Kisah Sukses Pendampingan Koperasi
@@ -545,7 +555,7 @@ export default function PortfolioPage() {
 
           {/* Carousel Card */}
           {totalItems === 0 ? (
-            <div className="text-center py-20 text-gray-500" style={{ background: "#fff", borderRadius: 12, padding: 60 }}>
+            <div style={{ background: "#fff", padding: 60, textAlign: "center", color: "#4b5563" }}>
               Tidak ada proyek dalam kategori ini.
             </div>
           ) : (
@@ -569,9 +579,9 @@ export default function PortfolioPage() {
                   <span
                     className="card-category-badge"
                     style={{
-                      color: categoryColors[currentItem.category] ?? "#6b7280",
-                      borderColor: (categoryColors[currentItem.category] ?? "#6b7280") + "40",
-                      background: (categoryColors[currentItem.category] ?? "#6b7280") + "0d"
+                      color: categoryColors[currentItem.category] ?? "#4b5563",
+                      borderColor: (categoryColors[currentItem.category] ?? "#4b5563") + "50",
+                      background: (categoryColors[currentItem.category] ?? "#4b5563") + "12"
                     }}
                   >
                     {currentItem.category}
@@ -613,7 +623,7 @@ export default function PortfolioPage() {
                   →
                 </button>
               </div>
-              <div className="text-center mt-3 text-xs text-gray-400">
+              <div style={{ textAlign: "center", marginTop: 12, fontSize: 12, color: "#6b7280" }}>
                 {currentIndex + 1} / {totalItems}
               </div>
             </div>
@@ -621,12 +631,12 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA — navy */}
       <section className="cta-strip">
         <div className="max-w-7xl mx-auto px-10" style={{ textAlign: "center" }}>
           <div
             style={{
-              color: "#d4b06a", fontSize: 10, letterSpacing: "0.22em",
+              color: "#5fc9c2", fontSize: 10, letterSpacing: "0.22em",
               textTransform: "uppercase", fontWeight: 500, marginBottom: 12,
             }}
           >
@@ -641,10 +651,17 @@ export default function PortfolioPage() {
           >
             Koperasi Anda Bisa Menjadi Kisah Sukses Berikutnya
           </h2>
-          <p style={{ color: "#6b7280", fontSize: 14, fontWeight: 300, lineHeight: 1.7, maxWidth: 420, margin: "0 auto 28px" }}>
+          <p style={{ color: "#cbd5e1", fontSize: 14, fontWeight: 300, lineHeight: 1.7, maxWidth: 420, margin: "0 auto 28px" }}>
             Konsultasikan kebutuhan koperasi Anda dan bersama kami wujudkan tata kelola yang kuat dan profesional.
           </p>
-          <button className="btn-primary">Konsultasi Gratis</button>
+          <a
+            href="https://wa.me/6281807405852?text=Halo%20Fona%20Mitra%20Konsultan%2C%20saya%20ingin%20berkonsultasi."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary"
+          >
+            Konsultasi Gratis
+          </a>
         </div>
       </section>
     </>

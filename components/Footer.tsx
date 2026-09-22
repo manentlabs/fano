@@ -9,40 +9,40 @@ const navLinks = [
 ];
 
 const serviceLinks = [
-  { href: "/services#pelatihan", label: "Pelatihan Anggota" },
-  { href: "/services#art", label: "ART, Persus, SOP & SOM" },
-  { href: "/services#keuangan", label: "Laporan Keuangan" },
-  { href: "/services#ad", label: "Anggaran Dasar" },
-  { href: "/services#konsultasi", label: "Konsultasi Koperasi" },
-  { href: "/services#pembiayaan", label: "Pendampingan Pembiayaan" },
+  { label: "Pelatihan Anggota" },
+  { label: "ART, Persus, SOP & SOM" },
+  { label: "Laporan Keuangan" },
+  { label: "Anggaran Dasar" },
+  { label: "Konsultasi Koperasi" },
+  { label: "Pendampingan Pembiayaan" },
 ];
 
 const socials = [
-  { href: "#", icon: "ti-brand-instagram", label: "Instagram" },
+  { href: "https://www.instagram.com/fona.mitrakonsultan/", icon: "ti-brand-instagram", label: "Instagram" },
   { href: "#", icon: "ti-brand-facebook", label: "Facebook" },
   { href: "#", icon: "ti-brand-youtube", label: "YouTube" },
-  { href: "#", icon: "ti-brand-whatsapp", label: "WhatsApp" },
+  { href: "https://api.whatsapp.com/send/?phone=628981344316", icon: "ti-brand-whatsapp", label: "WhatsApp" },
 ];
 
 const socialStyle = [
   "w-[34px]",
   "h-[34px]",
   "border",
-  "border-[#d4b06a]/20",
+  "border-[#2f8f8a]/20",
   "flex",
   "items-center",
   "justify-center",
   "text-[#6b7280]",
   "text-base",
-  "hover:border-[#d4b06a]",
-  "hover:text-[#d4b06a]",
+  "hover:border-[#5fc9c2]",
+  "hover:text-[#5fc9c2]",
   "transition-colors",
 ].join(" ");
 
 export default function Footer() {
   return (
     <footer
-      className="bg-[#0f1623] text-[#9ca3af]"
+      className="bg-[#0a1e30] text-[#9ca3af]"
       style={{ fontFamily: "'DM Sans', sans-serif" }}
     >
       {/* Top */}
@@ -51,9 +51,12 @@ export default function Footer() {
         {/* Brand */}
         <div>
           <div className="flex items-center gap-3 mb-1">
-            <div className="w-[34px] h-[34px] border border-[#d4b06a] rotate-45 flex items-center justify-center flex-shrink-0">
-              <span className="block w-[9px] h-[9px] bg-[#d4b06a]" />
-            </div>
+            <img
+              src="/logo2.png"
+              alt="Fona Mitra Konsultan"
+              style={{ width: 38, height: 38, objectFit: "contain" }}
+              className="flex-shrink-0"
+            />
             <div>
               <p
                 className="text-[#f5f0e8] text-lg leading-tight tracking-wide"
@@ -61,7 +64,7 @@ export default function Footer() {
               >
                 Fona Mitra Konsultan
               </p>
-              <p className="text-[10px] tracking-[0.25em] uppercase font-light text-[#d4b06a]">
+              <p className="text-[10px] tracking-[0.25em] uppercase font-light text-[#5fc9c2]">
                 Strategic Advisory
               </p>
             </div>
@@ -81,7 +84,7 @@ export default function Footer() {
 
         {/* Navigasi */}
         <div>
-          <p className="text-[11px] font-medium tracking-[0.18em] uppercase mb-4 text-[#d4b06a]">
+          <p className="text-[11px] font-medium tracking-[0.18em] uppercase mb-4 text-[#5fc9c2]">
             Navigasi
           </p>
           <ul className="flex flex-col gap-2.5">
@@ -100,18 +103,16 @@ export default function Footer() {
 
         {/* Layanan */}
         <div>
-          <p className="text-[11px] font-medium tracking-[0.18em] uppercase mb-4 text-[#d4b06a]">
+          <p className="text-[11px] font-medium tracking-[0.18em] uppercase mb-4 text-[#5fc9c2]">
             Layanan
           </p>
           <ul className="flex flex-col gap-2.5">
             {serviceLinks.map((l) => (
-              <li key={l.href}>
-                <Link
-                  href={l.href}
-                  className="text-[#6b7280] text-[13px] font-light hover:text-[#f5f0e8] transition-colors"
-                >
-                  {l.label}
-                </Link>
+              <li
+                key={l.label}
+                className="text-[#6b7280] text-[13px] font-light"
+              >
+                {l.label}
               </li>
             ))}
           </ul>
@@ -119,7 +120,7 @@ export default function Footer() {
 
         {/* Kontak */}
         <div>
-          <p className="text-[11px] font-medium tracking-[0.18em] uppercase mb-4 text-[#d4b06a]">
+          <p className="text-[11px] font-medium tracking-[0.18em] uppercase mb-4 text-[#5fc9c2]">
             Kontak
           </p>
           <ul className="flex flex-col gap-3 text-[13px] font-light text-[#6b7280]">
@@ -129,14 +130,14 @@ export default function Footer() {
             </li>
             <li className="flex items-center gap-2">
               <i className="ti ti-brand-whatsapp text-[14px] flex-shrink-0" aria-hidden="true" />
-              <a href="https://wa.me/628000000000" className="hover:text-[#f5f0e8] transition-colors">
-                +62 800-0000-0000
+              <a href="https://wa.me/628981344316" className="hover:text-[#f5f0e8] transition-colors">
+                +62 8981344316
               </a>
             </li>
             <li className="flex items-center gap-2">
               <i className="ti ti-mail text-[14px] flex-shrink-0" aria-hidden="true" />
               <a href="mailto:info@fonamitra.id" className="hover:text-[#f5f0e8] transition-colors">
-                info@fonamitra.id
+                admin@fona.site
               </a>
             </li>
             <li className="mt-1 text-[11px] text-[#4b5563] leading-relaxed">
@@ -147,7 +148,7 @@ export default function Footer() {
       </div>
 
       {/* Divider */}
-      <div className="max-w-7xl mx-auto h-px bg-[#d4b06a]/10" />
+      <div className="max-w-7xl mx-auto h-px bg-[#2f8f8a]/10" />
 
       {/* Bottom */}
       <div className="max-w-7xl mx-auto px-12 py-5 flex items-center justify-between flex-wrap gap-3">
@@ -158,8 +159,8 @@ export default function Footer() {
           Tumbuh Bersama, Kuat Bersama
         </span>
         <Link
-          href="/admin"
-          className="flex items-center gap-1.5 text-[11px] text-[#4b5563] border border-[#d4b06a]/15 px-3.5 py-1.5 tracking-[0.08em] uppercase hover:text-[#d4b06a] hover:border-[#d4b06a]/40 transition-colors"
+          href="/login"
+          className="flex items-center gap-1.5 text-[11px] text-[#4b5563] border border-[#2f8f8a]/15 px-3.5 py-1.5 tracking-[0.08em] uppercase hover:text-[#5fc9c2] hover:border-[#5fc9c2]/40 transition-colors"
         >
           <i className="ti ti-lock text-[13px]" aria-hidden="true" />
           Admin

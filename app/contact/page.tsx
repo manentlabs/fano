@@ -28,21 +28,31 @@ const contactInfo = [
   {
     icon: "📍",
     label: "Alamat",
-    value: "Indonesia",
+    value: "Jawa Barat, Indonesia",
     sub: "Layanan tersedia online & tatap muka",
+    href: null,
   },
   {
     icon: "📞",
     label: "Telepon / WhatsApp",
-    value: "+62 xxx-xxxx-xxxx",
+    value: "+62 898-1344-316",
     sub: "Senin – Jumat, 08.00 – 17.00 WIB",
+    href: "https://wa.me/628981344316",
   },
   {
     icon: "✉️",
     label: "Email",
-    value: "info@fonakonsultan.id",
+    value: "admin@fona.site",
     sub: "Respon dalam 1×24 jam kerja",
+    href: "mailto:admin@fona.site",
   },
+];
+
+const socials = [
+  { href: "https://www.instagram.com/fona.mitrakonsultan/", icon: "ti-brand-instagram", label: "Instagram" },
+  { href: "#", icon: "ti-brand-facebook", label: "Facebook" },
+  { href: "#", icon: "ti-brand-youtube", label: "YouTube" },
+  { href: "https://wa.me/628981344316", icon: "ti-brand-whatsapp", label: "WhatsApp" },
 ];
 
 export default function ContactPage() {
@@ -84,14 +94,24 @@ export default function ContactPage() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500&display=swap');
 
+        :root {
+          --navy-deep: #0a1e30;
+          --navy: #254a76;
+          --teal: #2f8f8a;
+          --teal-light: #5fc9c2;
+          --teal-dark: #1d6b6f;
+          --cream: #f4f7f7;
+        }
+
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(24px); }
           to   { opacity: 1; transform: translateY(0); }
         }
 
+        /* Header — navy (teks terang OK) */
         .contact-header {
-          background: #0f1623;
-          border-bottom: 1px solid rgba(212,176,106,0.15);
+          background: var(--navy);
+          border-bottom: 1px solid rgba(47,143,138,0.15);
           padding: 52px 0 44px;
         }
 
@@ -113,43 +133,68 @@ export default function ContactPage() {
           align-items: start;
         }
 
-        /* Info cards */
+        /* Info cards — bg putih, teks gelap */
         .info-card {
           display: flex; align-items: flex-start; gap: 16px;
           padding: 18px 20px;
           background: #fff;
-          border: 1px solid rgba(139,111,46,0.1);
+          border: 1px solid rgba(47,143,138,0.2);
           margin-bottom: 10px;
           transition: border-color 0.2s;
         }
-        .info-card:hover { border-color: rgba(212,176,106,0.4); }
+        .info-card:hover { border-color: rgba(47,143,138,0.55); }
         .info-icon {
           width: 38px; height: 38px; flex-shrink: 0;
-          border: 1px solid rgba(212,176,106,0.35);
+          border: 1px solid rgba(47,143,138,0.4);
+          background: rgba(47,143,138,0.06);
           display: flex; align-items: center; justify-content: center;
           font-size: 16px;
         }
+        .info-link {
+          color: var(--navy-deep);
+          text-decoration: none;
+          transition: color 0.2s;
+        }
+        .info-link:hover { color: var(--teal-dark); }
 
-        /* Free services box */
+        /* Social row */
+        .social-row {
+          display: flex; gap: 8px;
+          margin-top: 14px;
+        }
+        .social-btn {
+          width: 34px; height: 34px;
+          border: 1px solid rgba(47,143,138,0.25);
+          display: flex; align-items: center; justify-content: center;
+          color: #4b5563; font-size: 16px;
+          text-decoration: none;
+          transition: all 0.2s;
+        }
+        .social-btn:hover {
+          border-color: var(--teal-light);
+          color: var(--teal-dark);
+        }
+
+        /* Free services box — bg navy, teks terang */
         .free-box {
-          background: #0f1623;
-          border: 1px solid rgba(212,176,106,0.15);
+          background: var(--navy);
+          border: 1px solid rgba(47,143,138,0.2);
           padding: 24px;
           margin-top: 10px;
         }
         .free-item {
           display: flex; align-items: flex-start; gap: 10px;
           padding: 8px 0;
-          border-bottom: 1px solid rgba(212,176,106,0.08);
-          font-size: 12.5px; color: #9ca3af; font-weight: 300; line-height: 1.5;
+          border-bottom: 1px solid rgba(95,201,194,0.12);
+          font-size: 12.5px; color: #cbd5e1; font-weight: 300; line-height: 1.5;
         }
         .free-item:last-child { border-bottom: none; padding-bottom: 0; }
-        .free-check { color: #d4b06a; font-size: 11px; flex-shrink: 0; margin-top: 2px; }
+        .free-check { color: var(--teal-light); font-size: 11px; flex-shrink: 0; margin-top: 2px; font-weight: 700; }
 
-        /* Form */
+        /* Form — bg putih, teks gelap */
         .form-card {
           background: #fff;
-          border: 1px solid rgba(139,111,46,0.12);
+          border: 1px solid rgba(47,143,138,0.25);
           padding: 36px;
         }
         .form-row {
@@ -163,52 +208,57 @@ export default function ContactPage() {
         }
         .form-label {
           font-size: 11px; letter-spacing: 0.12em;
-          text-transform: uppercase; color: #6b7280; font-weight: 500;
+          text-transform: uppercase; color: #4b5563; font-weight: 600;
         }
         .form-input {
           padding: 11px 14px;
-          font-size: 13.5px; font-weight: 300;
-          border: 1px solid rgba(139,111,46,0.18);
-          background: #fdfcf9;
-          color: #0f1623;
+          font-size: 13.5px; font-weight: 400;
+          border: 1px solid rgba(47,143,138,0.25);
+          background: var(--cream);
+          color: var(--navy-deep);
           outline: none;
-          transition: border-color 0.2s;
+          transition: border-color 0.2s, background 0.2s;
           font-family: 'Inter', sans-serif;
           width: 100%;
         }
-        .form-input:focus { border-color: #d4b06a; }
+        .form-input:focus {
+          border-color: var(--teal);
+          background: #fff;
+        }
         .form-input::placeholder { color: #9ca3af; }
         select.form-input { cursor: pointer; appearance: none; }
         textarea.form-input { resize: vertical; min-height: 120px; }
 
-        /* Submit */
+        /* Submit — gradient teal */
         .btn-submit {
           width: 100%;
-          background: #0f1623; color: #d4b06a;
-          padding: 14px 28px; font-size: 12px; font-weight: 500;
+          background: linear-gradient(135deg, var(--teal-light), var(--teal));
+          color: #082022;
+          padding: 14px 28px; font-size: 12px; font-weight: 600;
           letter-spacing: 0.12em; text-transform: uppercase;
-          border: 1px solid rgba(212,176,106,0.3); cursor: pointer;
-          transition: all 0.2s; font-family: 'Inter', sans-serif;
+          border: none; cursor: pointer;
+          transition: filter 0.2s, transform 0.15s;
+          font-family: 'Inter', sans-serif;
         }
         .btn-submit:hover:not(:disabled) {
-          background: #d4b06a; color: #0f1623;
-          border-color: #d4b06a;
+          filter: brightness(1.08);
+          transform: translateY(-2px);
         }
         .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
         /* Status messages */
         .alert {
-          padding: 14px 16px; font-size: 13px; font-weight: 300;
+          padding: 14px 16px; font-size: 13px; font-weight: 400;
           margin-bottom: 20px; line-height: 1.5;
           border-left: 3px solid;
         }
         .alert-success {
-          background: rgba(16,120,80,0.06);
-          border-color: #10784f; color: #10784f;
+          background: rgba(29,107,111,0.08);
+          border-color: var(--teal-dark); color: var(--teal-dark);
         }
         .alert-error {
-          background: rgba(180,30,30,0.06);
-          border-color: #b41e1e; color: #b41e1e;
+          background: rgba(180,30,30,0.08);
+          border-color: #b41e1e; color: #8a1717;
         }
 
         @media (max-width: 768px) {
@@ -221,12 +271,12 @@ export default function ContactPage() {
         }
       `}</style>
 
-      {/* ── Header ── */}
+      {/* ── Header (bg navy) ── */}
       <section className="contact-header">
         <div className="max-w-7xl mx-auto px-10">
           <div className="eyebrow" style={{ animation: "fadeUp 0.7s ease both" }}>
-            <div className="eyebrow-line" style={{ background: "#d4b06a" }} />
-            <span className="eyebrow-text" style={{ color: "#d4b06a" }}>Hubungi Kami</span>
+            <div className="eyebrow-line" style={{ background: "#5fc9c2" }} />
+            <span className="eyebrow-text" style={{ color: "#5fc9c2" }}>Hubungi Kami</span>
           </div>
           <h1
             style={{
@@ -240,7 +290,7 @@ export default function ContactPage() {
           </h1>
           <p
             style={{
-              color: "#9ca3af", fontSize: 15, fontWeight: 300,
+              color: "#cbd5e1", fontSize: 15, fontWeight: 300,
               lineHeight: 1.75, maxWidth: 520,
               animation: "fadeUp 0.7s 0.2s ease both",
             }}
@@ -251,38 +301,65 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── Main Content ── */}
-      <section className="contact-section" style={{ background: "#f5f0e8", padding: "64px 0" }}>
+      {/* ── Main Content (bg cream) ── */}
+      <section className="contact-section" style={{ background: "#f4f7f7", padding: "64px 0" }}>
         <div className="max-w-7xl mx-auto px-10">
           <div className="contact-grid">
 
             {/* ── Left: Info ── */}
             <div>
               <div className="eyebrow" style={{ marginBottom: 20 }}>
-                <div className="eyebrow-line" style={{ background: "#8b6f2e" }} />
-                <span className="eyebrow-text" style={{ color: "#8b6f2e" }}>Informasi Kontak</span>
+                <div className="eyebrow-line" style={{ background: "#1d6b6f" }} />
+                <span className="eyebrow-text" style={{ color: "#1d6b6f" }}>Informasi Kontak</span>
               </div>
 
               {contactInfo.map((info, i) => (
                 <div key={i} className="info-card">
                   <div className="info-icon">{info.icon}</div>
                   <div>
-                    <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "#9ca3af", fontWeight: 500, marginBottom: 3 }}>
+                    <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "#6b7280", fontWeight: 600, marginBottom: 3 }}>
                       {info.label}
                     </div>
-                    <div style={{ fontSize: 14, fontWeight: 500, color: "#0f1623", marginBottom: 2 }}>
-                      {info.value}
+                    <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 2 }}>
+                      {info.href ? (
+                        <a
+                          href={info.href}
+                          target={info.href.startsWith("http") ? "_blank" : undefined}
+                          rel={info.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                          className="info-link"
+                        >
+                          {info.value}
+                        </a>
+                      ) : (
+                        <span style={{ color: "var(--navy-deep)" }}>{info.value}</span>
+                      )}
                     </div>
-                    <div style={{ fontSize: 12, color: "#9ca3af", fontWeight: 300 }}>
+                    <div style={{ fontSize: 12, color: "#4b5563", fontWeight: 400 }}>
                       {info.sub}
                     </div>
                   </div>
                 </div>
               ))}
 
-              {/* Free services */}
+              {/* Social media row */}
+              <div className="social-row">
+                {socials.map((s) => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    aria-label={s.label}
+                    target={s.href.startsWith("http") ? "_blank" : undefined}
+                    rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="social-btn"
+                  >
+                    <i className={`ti ${s.icon}`} aria-hidden="true" />
+                  </a>
+                ))}
+              </div>
+
+              {/* Free services — navy box */}
               <div className="free-box">
-                <div style={{ color: "#d4b06a", fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 500, marginBottom: 12 }}>
+                <div style={{ color: "#5fc9c2", fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 600, marginBottom: 12 }}>
                   Layanan Gratis
                 </div>
                 <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 15, color: "#f5f0e8", marginBottom: 14, lineHeight: 1.4 }}>
@@ -306,10 +383,10 @@ export default function ContactPage() {
             <div className="form-card">
               <div style={{ marginBottom: 24 }}>
                 <div className="eyebrow">
-                  <div className="eyebrow-line" style={{ background: "#8b6f2e" }} />
-                  <span className="eyebrow-text" style={{ color: "#8b6f2e" }}>Formulir Kontak</span>
+                  <div className="eyebrow-line" style={{ background: "#1d6b6f" }} />
+                  <span className="eyebrow-text" style={{ color: "#1d6b6f" }}>Formulir Kontak</span>
                 </div>
-                <p style={{ fontSize: 13, color: "#6b7280", fontWeight: 300, lineHeight: 1.6, marginTop: 6 }}>
+                <p style={{ fontSize: 13, color: "#4b5563", fontWeight: 400, lineHeight: 1.6, marginTop: 6 }}>
                   Isi formulir di bawah dan kami akan menghubungi Anda dalam 1×24 jam kerja.
                 </p>
               </div>
@@ -415,7 +492,7 @@ export default function ContactPage() {
                   {status === "loading" ? "Mengirim..." : "Kirim Pesan →"}
                 </button>
 
-                <p style={{ fontSize: 11, color: "#9ca3af", fontWeight: 300, marginTop: 12, textAlign: "center", lineHeight: 1.6 }}>
+                <p style={{ fontSize: 11, color: "#6b7280", fontWeight: 400, marginTop: 12, textAlign: "center", lineHeight: 1.6 }}>
                   Data Anda aman dan tidak akan dibagikan kepada pihak ketiga.
                 </p>
               </form>
